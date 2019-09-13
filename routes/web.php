@@ -29,5 +29,5 @@ Route::group(['namespace' => 'Auth'], function() {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/user', 'UserController@index')->name('user.form');
+Route::get('/user', 'UserController@index')->name('user.form')->middleware('can:create,App\User');
 Route::post('/user', 'UserController@store');

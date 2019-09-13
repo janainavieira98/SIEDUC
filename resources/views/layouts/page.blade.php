@@ -6,30 +6,36 @@
       <div class="col-12 col-md-4 col-lg-3">
         <div class="sidebar">
           @foreach($sidebarCards as $card)
-            <sidebar-card>
-              <header slot="header">
-                {{ $card['name'] }}
-              </header>
-              <div slot="body">
-                @foreach($card['items'] as $link)
-                  @component('components.card')
-                    @slot('cardClass')
-                      {{ $loop->last ? 'mb-3' : 'mb-2' }}
-                    @endslot
+            @if(collect($card['items'])->some(function($item) {
+              return isset($item['show']) ? $item['show'] : true;
+            }))
+              <sidebar-card>
+                <header slot="header">
+                  {{ $card['name'] }}
+                </header>
+                <div slot="body">
+                  @foreach($card['items'] as $link)
+                    @if(isset($link['show']) ? $link['show'] : true)
+                      @component('components.card')
+                        @slot('cardClass')
+                          {{ $loop->last ? 'mb-3' : 'mb-2' }}
+                        @endslot
 
-                    @slot('cardBodyClass')
-                      {{ URL::current() === $link['link'] ? 'bg-light' : '' }}
-                    @endslot
+                        @slot('cardBodyClass')
+                          {{ URL::current() === $link['link'] ? 'bg-light' : '' }}
+                        @endslot
 
-                    <a class="text-black-50 text-center" href="{{ $link['link'] }}">
-                      <h5 class="p-0 m-0 text-capitalize">
-                        {{ $link['name'] }}
-                      </h5>
-                    </a>
-                  @endcomponent
-                @endforeach
-              </div>
-            </sidebar-card>
+                        <a class="text-black-50 text-center" href="{{ $link['link'] }}">
+                          <h5 class="p-0 m-0 text-capitalize">
+                            {{ $link['name'] }}
+                          </h5>
+                        </a>
+                      @endcomponent
+                    @endif
+                  @endforeach
+                </div>
+              </sidebar-card>
+            @endif
           @endforeach
         </div>
       </div>

@@ -4,10 +4,16 @@
 namespace App\ViewComposers;
 
 
+use App\User;
 use Illuminate\View\View;
 
 class Sidebar
 {
+    public function can(...$args)
+    {
+        return auth()->user()->can(...$args);
+    }
+
     public function items()
     {
         return [
@@ -53,7 +59,8 @@ class Sidebar
                     ],
                     [
                         'name' => __('register user'),
-                        'link' => route('user.form')
+                        'link' => route('user.form'),
+                        'show' => $this->can('create', User::class)
                     ]
                 ]
             ],

@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea72ff75-30b3-431e-b1e3-4f0bc7a17bd1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/views/errors/403.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/User/StoreRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/User/StoreRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ViewComposers/Sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ViewComposers/Sidebar.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/lang/pt-BR.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/pt-BR.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/passwords/email.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/passwords/email.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/notifications/email.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/vendor/notifications/email.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/page.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/page.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -179,7 +181,9 @@
       <workItem from="1568310293246" duration="11495000" />
       <workItem from="1568330037216" duration="67000" />
       <workItem from="1568336939764" duration="6511000" />
-      <workItem from="1568378792561" duration="6790000" />
+      <workItem from="1568378792561" duration="7017000" />
+      <workItem from="1568390305780" duration="18000" />
+      <workItem from="1568391604424" duration="812000" />
     </task>
     <servers />
   </component>
@@ -191,7 +195,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

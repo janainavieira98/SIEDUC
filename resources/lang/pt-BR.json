@@ -36,5 +36,6 @@
     "successfully registered user": "Usuário cadastrado com sucesso",
     "You are receiving this email because we received a password reset request for your account.": "Você está recebendo este email porque nos recebemos uma solicitação de redefinição de senha para sua conta",
     "This password reset link will expire in :count minutes.": "Este link para redefinir a senha ira expirar em :count minutos.",
-    "if you are having trouble clicking :actionText the button bellow, copy and paste the below url into your web browser [:actionURL](:actionURL)": "Se você estiver tendo problemas ao clicar no botão \":actionText\" , copie e cole o link abaixo no seu navegador [:actionURL](:actionURL)"
+    "if you are having trouble clicking :actionText the button bellow, copy and paste the below url into your web browser [:actionURL](:actionURL)": "Se você estiver tendo problemas ao clicar no botão \":actionText\" , copie e cole o link abaixo no seu navegador [:actionURL](:actionURL)",
+    "This action is unauthorized": "Você não está autorizado a realizar essa ação"
 }
