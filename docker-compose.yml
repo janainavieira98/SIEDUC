@@ -1,0 +1,20 @@
+version: '3'
+services:
+  server:
+    image: ambientum/php:7.3-nginx
+    volumes:
+      - ./:/var/www/app
+    ports:
+      - 8080:8080
+      - 8083:8083
+
+  db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./volumes/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: tg
+      MYSQL_USER: tguser
+      MYSQL_PASSWORD: tgpassword

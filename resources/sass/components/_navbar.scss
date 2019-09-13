@@ -1,0 +1,7 @@
+.main-navbar {
+    @extend .navbar, .navbar-expand-md, .navbar-light, .bg-primary, .shadow-sm;
+
+    .navbar-nav .nav-link {
+        @extend .text-white;
+    }
+}
