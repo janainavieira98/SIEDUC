@@ -2,20 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea72ff75-30b3-431e-b1e3-4f0bc7a17bd1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/SidebarCard.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/sass/components/_sidebar.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/sass/override/_collapse.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/sass/utils/_cursor.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/components/_navbar.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/components/_navbar.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/override/_card.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/override/_card.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/components/card.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/components/card.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/page.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/page.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/pt-BR.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/pt-BR.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/passwords/email.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/passwords/email.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/vendor/notifications/email.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/vendor/notifications/email.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -188,7 +179,7 @@
       <workItem from="1568310293246" duration="11495000" />
       <workItem from="1568330037216" duration="67000" />
       <workItem from="1568336939764" duration="6511000" />
-      <workItem from="1568378792561" duration="5243000" />
+      <workItem from="1568378792561" duration="6790000" />
     </task>
     <servers />
   </component>
