@@ -1,4 +1,4 @@
-<div class="card {{ $cardClass ?? '' }}">
+<div class="card {{ $cardClass ?? '' }}" {{ isset($id) ? 'id='.$id : '' }}>
   @if(isset($header))
     <div class="card-header bg-secondary text-white font-weight-bold">
       <h4 class="m-0 p-0">

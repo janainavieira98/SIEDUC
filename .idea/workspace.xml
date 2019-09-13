@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ea72ff75-30b3-431e-b1e3-4f0bc7a17bd1" name="Default Changelist" comment="" />
+    <list default="true" id="ea72ff75-30b3-431e-b1e3-4f0bc7a17bd1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/SidebarCard.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/components/_sidebar.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/override/_collapse.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/utils/_cursor.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/components/_navbar.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/components/_navbar.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/override/_card.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/override/_card.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/components/card.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/components/card.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/page.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/page.blade.php" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +31,9 @@
   </component>
   <component name="FavoritesManager">
     <favorites_list name="tg" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JsbtTreeLayoutManager">
     <layout place="tools.popupnpm">
@@ -118,7 +136,9 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1QienxGXuxtH3rvkMagkActJd3c" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/public/images" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -168,11 +188,22 @@
       <workItem from="1568310293246" duration="11495000" />
       <workItem from="1568330037216" duration="67000" />
       <workItem from="1568336939764" duration="6511000" />
-      <workItem from="1568378792561" duration="1002000" />
+      <workItem from="1568378792561" duration="5243000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

@@ -7,6 +7,17 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// Override bootstrap defaults
 @import "override/card";
+@import "override/collapse";
 
+// Utils
+@import "utils/cursor";
+
+// My Custom Components
 @import "components/navbar";
+@import "components/sidebar";
+
+body {
+    margin-top: 55px;
+}

@@ -1,0 +1,14 @@
+.sidebar {
+    overflow-y: auto;
+
+    @include media-breakpoint-up(md) {
+        & {
+            position: fixed;
+            left: 20px;
+            top: 80px;
+            width: 300px;
+            height: calc(100vh - 100px);
+            max-height: calc(100vh - 100px);
+        }
+    }
+}
