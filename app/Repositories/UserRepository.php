@@ -32,12 +32,12 @@ class UserRepository
                 $data->only([
                     'name',
                     'email',
-                    'password',
                     'birthday',
                     'rg',
                     'cpf',
                 ])->toArray(),
                 [
+                    'password' => bcrypt($data->get('password')),
                     'gender_id' => $data->get('gender'),
                     'role_id' => $data->get('role'),
                     'address_id' => $address->id,

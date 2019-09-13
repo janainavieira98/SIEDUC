@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea72ff75-30b3-431e-b1e3-4f0bc7a17bd1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/errors/403.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/User/StoreRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/User/StoreRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ViewComposers/Sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ViewComposers/Sidebar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/pt-BR.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/pt-BR.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/page.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/page.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Repositories/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/UserRepository.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -183,7 +178,8 @@
       <workItem from="1568336939764" duration="6511000" />
       <workItem from="1568378792561" duration="7017000" />
       <workItem from="1568390305780" duration="18000" />
-      <workItem from="1568391604424" duration="812000" />
+      <workItem from="1568391604424" duration="980000" />
+      <workItem from="1568402778698" duration="21000" />
     </task>
     <servers />
   </component>
