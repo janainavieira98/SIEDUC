@@ -10,7 +10,8 @@
 </script>
 
 <template>
-    <div>
+    <div class="sidebar-card">
+
         <div class="card mb-2">
             <div @click="collapse = !collapse" class="card-header cursor-pointer bg-secondary text-white font-weight-bold text-capitalize">
                 <slot name="header"/>

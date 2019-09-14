@@ -26,17 +26,19 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
             'cpf' => [
                 'required',
                 'string',
-                'regex:/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/'
+                'regex:/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/',
+                'unique:users,cpf'
             ],
             'rg' => [
                 'required',
                 'string',
-                'regex:/^\d{2}\.\d{3}\.\d{3}\-\d{1}$/'
+                'regex:/^\d{2}\.\d{3}\.\d{3}\-\d{1}$/',
+                'unique:users,rg'
             ],
             'mobile_number' => [
                 'required',

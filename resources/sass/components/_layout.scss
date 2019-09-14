@@ -1,0 +1,23 @@
+.main-content {
+
+    @include media-breakpoint-up(lg) {
+        width: calc(100% - 330px);
+    }
+}
+
+.sidebar-card {
+    max-width: 100%;
+}
+
+
+.container-fluid {
+    width: 100%;
+    max-width: $maxWidth;
+}
+
+@include media-breakpoint-up(md) {
+    .main-content {
+        margin-left: $sidebarWidth + 20px;
+    }
+}
+

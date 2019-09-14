@@ -3,10 +3,7 @@
 
     @include media-breakpoint-up(md) {
         & {
-            position: fixed;
-            left: 20px;
-            top: 80px;
-            width: 300px;
+            width: $sidebarWidth;
             height: calc(100vh - 100px);
             max-height: calc(100vh - 100px);
         }
