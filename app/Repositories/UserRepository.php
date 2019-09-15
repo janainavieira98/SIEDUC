@@ -20,7 +20,7 @@ class UserRepository
     {
         $query = User::query();
 
-        if ($data['search']) {
+        if (isset($data['search'])) {
             $search = $data['search'];
             $fields = ['name', 'email', 'cpf', 'rg'];
 
