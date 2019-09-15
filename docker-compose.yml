@@ -5,8 +5,8 @@ services:
     volumes:
       - ./:/var/www/app
     ports:
-      - 8080:8080
-      - 8083:8083
+      - 8000:8080
+      - 8003:8083
 
   db:
     image: mysql:8.0

@@ -59,8 +59,8 @@ class Sidebar
                     ],
                     [
                         'name' => __('register user'),
-                        'link' => route('user.form'),
-                        'show' => $this->can('create', User::class)
+                        'link' => route('usuarios.index'),
+                        'show' => $this->can('viewAny', User::class)
                     ]
                 ]
             ],

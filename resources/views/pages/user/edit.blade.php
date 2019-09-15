@@ -1,13 +1,22 @@
 @extends('layouts.page')
 
 @section('page_content')
+  @include('components.breadcrumbs', [
+    'items' => [
+      __('Home') => route('home'),
+      __('users') => route('usuarios.index'),
+      __('Edit :entity', ['entity' => __('user')]) => url()->current(),
+    ]
+  ])
+
   @component('components.card')
     @slot('header')
-      <span class="text-capitalize">{{ __('register user') }}</span>
+      <span class="text-capitalize">{{ __('Edit :entity', ['entity' => __('user')]) }}</span>
     @endslot
 
-    <form method="POST" action="{{ route('user.form') }}">
+    <form method="POST" action="{{ route('usuarios.update', $user) }}">
       @csrf
+      @method('PUT')
 
       <div class="form-group row">
         <label for="name" class="col-lg-2 col-form-label text-md-left text-capitalize">{{ __('name') }}</label>
@@ -19,7 +28,7 @@
               type="text"
               class="form-control @error('name') is-invalid @enderror"
               name="name"
-              value="{{ old('name') }}"
+              value="{{ old('name', $user['name']) }}"
               required
               autocomplete="email"
             />
@@ -44,7 +53,7 @@
               type="email"
               class="form-control @error('email') is-invalid @enderror"
               name="email"
-              value="{{ old('email') }}"
+              value="{{ old('email', $user['email']) }}"
               required
               autocomplete="email"
             />
@@ -59,64 +68,9 @@
         <div class="col-12 col-lg-6">
           <div class="form-group row">
             <label
-              for="password"
-              class="col-lg-4 col-form-label text-md-left text-capitalize">
-              {{ __('password') }}
-            </label>
-
-            <div class="col-lg-8">
-              <div>
-                <input
-                  id="password"
-                  type="password"
-                  class="form-control @error('password') is-invalid @enderror"
-                  name="password"
-                  required
-                  autocomplete="current-password"
-                />
-              </div>
-
-              @component('components.errors', ['errorKey' => 'password'])
-              @endcomponent
-
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-lg-6">
-          <div class="form-group row">
-            <label
-              for="password_confirmation"
-              class="col-lg-4 col-form-label text-md-left text-capitalize">
-              {{ __('confirm password') }}
-            </label>
-
-            <div class="col-lg-8">
-              <div>
-                <input
-                  id="password_confirmation"
-                  type="password"
-                  class="form-control @error('password_confirmation') is-invalid @enderror"
-                  name="password_confirmation"
-                  required
-                  autocomplete="password_confirmation"
-                />
-              </div>
-
-              @component('components.errors', ['errorKey' => 'password_confirmation'])
-              @endcomponent
-
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12 col-lg-6">
-          <div class="form-group row">
-            <label
               for="cpf"
               class="col-lg-4 col-form-label text-md-left text-capitalize">
-              {{ __('CPF') }} {{ old('cpf') }}
+              {{ __('CPF') }}
             </label>
 
             <div class="col-lg-8">
@@ -128,7 +82,7 @@
                   type="text"
                   class="form-control @error('cpf') is-invalid @enderror"
                   name="cpf"
-                  value="{{ old('cpf') }}"
+                  value="{{ old('cpf', $user['cpf']) }}"
                   required
                   autocomplete="cpf"
                 />
@@ -159,7 +113,7 @@
                   type="text"
                   class="form-control @error('rg') is-invalid @enderror"
                   name="rg"
-                  value="{{ old('rg') }}"
+                  value="{{ old('rg', $user['rg']) }}"
                   required
                   autocomplete="rg"
                 />
@@ -189,7 +143,7 @@
                   type="text"
                   class="form-control @error('mobile_number') is-invalid @enderror"
                   name="mobile_number"
-                  value="{{ old('mobile_number') }}"
+                  value="{{ old('mobile_number', $user['phone']['mobile_number']) }}"
                   required
                   autocomplete="mobile_number"
                 />
@@ -216,7 +170,7 @@
                   guide
                   id="home_number"
                   type="text"
-                  value="{{ old('home_number') }}"
+                  value="{{ old('home_number', $user['phone']['home_number']) }}"
                   class="form-control @error('home_number') is-invalid @enderror"
                   name="home_number"
                   required
@@ -250,7 +204,7 @@
                   type="text"
                   class="form-control @error('cep') is-invalid @enderror"
                   name="cep"
-                  value="{{ old('cep') }}"
+                  value="{{ old('cep', $user['address']['cep']) }}"
                   required
                   autocomplete="cep"
                 />
@@ -274,7 +228,7 @@
                   type="text"
                   class="form-control @error('address') is-invalid @enderror"
                   name="address"
-                  value="{{ old('address') }}"
+                  value="{{ old('address', $user['address']['address']) }}"
                   required
                   autocomplete="address"
                 />
@@ -301,7 +255,7 @@
                   type="text"
                   class="form-control @error('city') is-invalid @enderror"
                   name="city"
-                  value="{{ old('city') }}"
+                  value="{{ old('city', $user['address']['city']) }}"
                   required
                   autocomplete="city"
                 />
@@ -325,7 +279,7 @@
                   type="text"
                   class="form-control @error('neighborhood') is-invalid @enderror"
                   name="neighborhood"
-                  value="{{ old('neighborhood') }}"
+                  value="{{ old('neighborhood', $user['address']['neighborhood']) }}"
                   required
                   autocomplete="neighborhood"
                 />
@@ -353,7 +307,7 @@
               required>
               @foreach($roles as $role)
                 <option class="text-capitalize"
-                        value="{{ $role['id'] }}" {{ old('role') == $role['id'] ? 'selected' : '' }}>{{ $role['name'] }}
+                        value="{{ $role['id'] }}" {{ old('role', $user['role']['id']) == $role['id'] ? 'selected' : '' }}>{{ $role['name'] }}
                 </option>
               @endforeach
             </select>
@@ -379,7 +333,7 @@
               required>
               @foreach($genders as $gender)
                 <option class="text-capitalize"
-                        value="{{ $gender['id'] }}" {{ old('gender') == $gender['id'] ? 'selected' : '' }}>{{
+                        value="{{ $gender['id'] }}" {{ old('gender', $user['gender']['id']) == $gender['id'] ? 'selected' : '' }}>{{
                   $gender['name'] }}
                 </option>
               @endforeach
@@ -402,7 +356,7 @@
               type="date"
               class="form-control @error('birthday') is-invalid @enderror"
               name="birthday"
-              value="{{ old('birthday') }}"
+              value="{{ old('birthday', $user['birthday']->format('Y-m-d')) }}"
               required
               autocomplete="birthday"
             />
@@ -414,7 +368,8 @@
       </div>
 
       <div class="text-right">
-        <button class="btn btn-primary text-capitalize">{{ __('register') }}</button>
+        <a href="{{ route('usuarios.index') }}" class="btn btn-danger text-capitalize">{{ __('back') }}</a>
+        <button class="btn btn-primary text-capitalize">{{ __('save') }}</button>
       </div>
     </form>
   @endcomponent

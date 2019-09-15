@@ -14,6 +14,7 @@ class UserObserver
     public function creating(User $user)
     {
         $user->api_token = Str::random(60);
+        $user->uuid = Str::uuid()->toString();
 
         Mail::to($user)->sendNow(new WelcomeEmail());
     }

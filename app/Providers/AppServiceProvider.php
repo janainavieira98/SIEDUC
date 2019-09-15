@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,5 +27,11 @@ class AppServiceProvider extends ServiceProvider
     {
         // this sets the default string length to avoid database error when creating string columns
         Schema::defaultStringLength(191);
+
+        Route::resourceVerbs([
+            'create' => 'criar',
+            'edit' => 'editar',
+            'index' => 'listar'
+        ]);
     }
 }

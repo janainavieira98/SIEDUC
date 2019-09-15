@@ -46,7 +46,7 @@ class User extends BaseUser
     ];
 
     protected $casts = [
-      'birthday' => 'date:d/m/Y'
+      'birthday' => 'date'
     ];
 
     protected $with = ['role'];
@@ -56,9 +56,29 @@ class User extends BaseUser
         return $this->belongsTo(Role::class);
     }
 
+    public function gender()
+    {
+        return $this->belongsTo(Gender::class);
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
+    }
+
+    public function phone()
+    {
+        return $this->belongsTo(Phone::class);
+    }
+
     public function getRoleSlugAttribute()
     {
         return $this->role->slug;
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
     }
 
 }

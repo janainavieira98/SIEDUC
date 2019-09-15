@@ -1,0 +1,11 @@
+.breadcrumb-item a, .breadcrumb-item span {
+    color: white;
+    cursor: pointer;
+}
+
+.breadcrumb-item + .breadcrumb-item:before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    content: "\f061";
+    color: white!important;
+}

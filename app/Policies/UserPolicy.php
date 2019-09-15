@@ -18,7 +18,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return true;
+        return $user->role_slug == Role::$DIRECTOR || $user->role_slug == Role::$SECRETARY;
     }
 
     /**
@@ -30,7 +30,7 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        return true;
+        return $user->role_slug == Role::$DIRECTOR || $user->role_slug == Role::$SECRETARY || $user->id == $model->id;
     }
 
     /**

@@ -7,10 +7,33 @@ namespace App\Repositories;
 use App\Address;
 use App\Phone;
 use App\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
 class UserRepository
 {
+    /**
+     * @param array $data
+     * @return Builder
+     */
+    public function filteredQuery(array $data = [])
+    {
+        $query = User::query();
+
+        if ($data['search']) {
+            $search = $data['search'];
+            $fields = ['name', 'email', 'cpf', 'rg'];
+
+            $query->where(function($q) use ($search, $fields) {
+                foreach ($fields as $field) {
+                    $q->orWhere($field, 'LIKE', "%$search%");
+                }
+            });
+        }
+
+        return $query;
+    }
+
     public function store($data = [])
     {
         $data = collect($data);
@@ -44,6 +67,39 @@ class UserRepository
                     'phone_id' => $phone->id
                 ]
             ));
+        });
+    }
+
+    public function update(User $user, $data = [])
+    {
+        $data = collect($data);
+
+        return DB::transaction(function() use ($data, $user) {
+            $phoneData = $data->only(['mobile_number', 'home_number'])->toArray();
+            $addressData = $data->only([
+                'neighborhood',
+                'address',
+                'cep',
+                'city'
+            ])->toArray();
+
+            $user->phone()->update($phoneData);
+            $user->address()->update($addressData);
+            $user->update(array_merge(
+                $data->only([
+                    'name',
+                    'email',
+                    'birthday',
+                    'rg',
+                    'cpf',
+                ])->toArray(),
+                [
+                    'gender_id' => $data->get('gender'),
+                    'role_id' => $data->get('role'),
+                ]
+            ));
+
+            return $user->fresh();
         });
     }
 }

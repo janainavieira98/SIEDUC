@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\User;
 
-use App\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreRequest extends CreateRequest
+class UpdateRequest extends EditRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -16,19 +16,22 @@ class StoreRequest extends CreateRequest
     {
         return [
             'name' => 'required|string',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users', 'email')->ignoreModel($this->route('user'), 'id')
+            ],
             'cpf' => [
                 'required',
                 'string',
                 'regex:/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/',
-                'unique:users,cpf'
+                Rule::unique('users', 'cpf')->ignoreModel($this->route('user'), 'id'),
             ],
             'rg' => [
                 'required',
                 'string',
                 'regex:/^\d{2}\.\d{3}\.\d{3}\-\d{1}$/',
-                'unique:users,rg'
+                Rule::unique('users', 'rg')->ignoreModel($this->route('user'), 'id'),
             ],
             'mobile_number' => [
                 'required',
