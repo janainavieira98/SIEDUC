@@ -53,5 +53,9 @@
     "Type something to search...": "Digite aqui para buscar...",
     "search": "buscar",
     "active": "ativo",
-    "inactive": "inativo"
+    "inactive": "inativo",
+    "Disciplines": "Disciplinas",
+    "Discipline": "Disciplina",
+    "Create :entity": "Criar :entity",
+    "code": "código"
 }

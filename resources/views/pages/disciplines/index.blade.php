@@ -4,7 +4,7 @@
   @include('components.breadcrumbs', [
     'items' => [
       __('Home') => route('home'),
-      __('users') => url()->current()
+      __('Disciplines') => url()->current()
     ]
   ])
 
@@ -12,11 +12,11 @@
     @slot('header')
       <div
         class="d-flex flex-column flex-md-row justify-content-center justify-content-between align-items-center align-items-md-baseline">
-        <span class="text-capitalize mb-2 mb-md-0">{{ __('users') }}</span>
+        <span class="text-capitalize mb-2 mb-md-0">{{ __('disciplines') }}</span>
 
         <div>
-          <a href="{{ route('usuarios.create') }}" class="btn btn-primary text-uppercase font-weight-bold">
-            <span class="fas fa-plus"/> {{ __('new user') }}
+          <a href="{{ route('disciplinas.create') }}" class="btn btn-primary text-uppercase font-weight-bold">
+            <span class="fas fa-plus"/> {{ __('Create :entity', ['entity' => __('Discipline')]) }}
           </a>
         </div>
       </div>
@@ -37,35 +37,24 @@
     <div class="table-responsive">
       <table class="table">
         <thread>
-          <tr class="text-uppercase">
+          <tr>
+            <th>{{ __('code') }}</th>
             <th>{{ __('name') }}</th>
-            <th>{{ __('email') }}</th>
-            <th>{{ __('cpf') }}</th>
-            <th>{{ __('status') }}</th>
             <th>{{ __('Actions') }}</th>
           </tr>
         </thread>
         <tbody>
-        @if($users->count())
-          @foreach($users as $user)
+        @if($disciplines->count())
+          @foreach($disciplines as $discipline)
             <tr>
-              <td>{{ $user['name'] }}</td>
-              <td>{{ $user['email'] }}</td>
-              <td>{{ $user['cpf'] }}</td>
-              <td>{{ __($user['status'] ? 'active' : 'inactive') }}</td>
-              <td>
-                <a href="{{ route('usuarios.show', $user) }}" class="btn btn-success">
-                  <span class="fas fa-eye"/> {{ __('View') }}
-                </a>
-                <a href="{{ route('usuarios.edit', $user) }}" class="btn btn-primary">
-                  <span class="fas fa-edit"/> {{ __('Edit') }}
-                </a>
-              </td>
+              <td>{{ $discipline['code'] }}</td>
+              <td>{{ $discipline['name'] }}</td>
+              <td>some actions</td>
             </tr>
           @endforeach
         @else
           <tr>
-            <td colspan="4">
+            <td colspan="3">
               <div class="text-center">
                 {{ __('no records found') }}
               </div>
@@ -74,10 +63,6 @@
         @endif
         </tbody>
       </table>
-    </div>
-
-    <div class="text-center">
-      {{ $users->appends(request()->query())->links() }}
     </div>
   @endcomponent
 @endsection

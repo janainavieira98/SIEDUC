@@ -10,29 +10,9 @@ use App\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
-class UserRepository
+class UserRepository extends BaseRepository
 {
-    /**
-     * @param array $data
-     * @return Builder
-     */
-    public function filteredQuery(array $data = [])
-    {
-        $query = User::query();
-
-        if (isset($data['search'])) {
-            $search = $data['search'];
-            $fields = ['name', 'email', 'cpf', 'rg'];
-
-            $query->where(function($q) use ($search, $fields) {
-                foreach ($fields as $field) {
-                    $q->orWhere($field, 'LIKE', "%$search%");
-                }
-            });
-        }
-
-        return $query;
-    }
+    public static $model = User::class;
 
     public function store($data = [])
     {
@@ -74,7 +54,7 @@ class UserRepository
     {
         $data = collect($data);
 
-        return DB::transaction(function() use ($data, $user) {
+        return DB::transaction(function () use ($data, $user) {
             $phoneData = $data->only(['mobile_number', 'home_number'])->toArray();
             $addressData = $data->only([
                 'neighborhood',
@@ -102,5 +82,10 @@ class UserRepository
 
             return $user->fresh();
         });
+    }
+
+    public function sortable(): array
+    {
+        return ['name', 'email', 'cpf', 'rg'];
     }
 }

@@ -3,18 +3,36 @@
 namespace App\Http\Controllers;
 
 use App\Discipline;
+use App\Http\Requests\Discipline\StoreRequest;
+use App\Repositories\DisciplineRepository;
 use Illuminate\Http\Request;
 
 class DisciplineController extends Controller
 {
+
+    /**
+     * @var DisciplineRepository
+     */
+    protected $disciplineRepository;
+
+    public function __construct(DisciplineRepository $disciplineRepository)
+    {
+        $this->disciplineRepository = $disciplineRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $disciplines = $this
+            ->disciplineRepository
+            ->filteredQuery($request->query())
+            ->paginate(25);
+
+        return view('pages.disciplines.index', compact('disciplines'));
     }
 
     /**
@@ -24,7 +42,7 @@ class DisciplineController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.disciplines.create');
     }
 
     /**
@@ -33,9 +51,17 @@ class DisciplineController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $discipline = $this->disciplineRepository->create($request->all());
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return $discipline;
+        }
+
+        return redirect()->route('disciplinas.index', [
+            'message' => __('successfully registered :entity', ['entity' => __('Discipline')])
+        ]);
     }
 
     /**
