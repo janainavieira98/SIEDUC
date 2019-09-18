@@ -3,19 +3,10 @@
 namespace App\Http\Requests\Discipline;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class UpdateRequest extends FormRequest
+class UpdateRequest extends EditRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return false;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +15,12 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'code' => [
+                'required',
+                'string',
+                Rule::unique('disciplines', 'code')->ignoreModel($this->route('discipline'), 'id')
+            ],
+            'name' => 'required|string'
         ];
     }
 }

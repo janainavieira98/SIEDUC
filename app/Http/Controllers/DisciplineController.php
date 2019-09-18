@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Discipline;
+use App\Http\Requests\Discipline\EditRequest;
 use App\Http\Requests\Discipline\StoreRequest;
+use App\Http\Requests\Discipline\UpdateRequest;
+use App\Http\Requests\Discipline\ViewRequest;
 use App\Repositories\DisciplineRepository;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class DisciplineController extends Controller
 {
@@ -23,7 +27,7 @@ class DisciplineController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(Request $request)
     {
@@ -38,7 +42,7 @@ class DisciplineController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -49,7 +53,7 @@ class DisciplineController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(StoreRequest $request)
     {
@@ -59,7 +63,7 @@ class DisciplineController extends Controller
             return $discipline;
         }
 
-        return redirect()->route('disciplinas.index', [
+        return redirect()->route('disciplinas.index')->with([
             'message' => __('successfully registered :entity', ['entity' => __('Discipline')])
         ]);
     }
@@ -67,42 +71,52 @@ class DisciplineController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Discipline  $discipline
-     * @return \Illuminate\Http\Response
+     * @param Discipline $discipline
+     * @param ViewRequest $request
+     * @return Response
      */
-    public function show(Discipline $discipline)
+    public function show(Discipline $discipline, ViewRequest $request)
     {
-        //
+        return view('pages.disciplines.view', compact('discipline'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Discipline  $discipline
-     * @return \Illuminate\Http\Response
+     * @param Discipline $discipline
+     * @param EditRequest $request
+     * @return Response
      */
-    public function edit(Discipline $discipline)
+    public function edit(Discipline $discipline, EditRequest $request)
     {
-        //
+        return view('pages.disciplines.edit', compact('discipline'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Discipline  $discipline
-     * @return \Illuminate\Http\Response
+     * @param Discipline $discipline
+     * @return Response
      */
-    public function update(Request $request, Discipline $discipline)
+    public function update(UpdateRequest $request, Discipline $discipline)
     {
-        //
+        $updatedDiscipline = $this->disciplineRepository->update($discipline, $request->all());
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return $updatedDiscipline;
+        }
+
+        return redirect()->route('disciplinas.index')->with([
+            'message' => __('successfully updated :entity', ['entity' => __('Discipline')])
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Discipline  $discipline
-     * @return \Illuminate\Http\Response
+     * @param Discipline $discipline
+     * @return Response
      */
     public function destroy(Discipline $discipline)
     {

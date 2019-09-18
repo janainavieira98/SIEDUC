@@ -14,4 +14,13 @@ class DisciplineRepository extends BaseRepository
     {
         return ['code', 'name'];
     }
+
+    public function update(Discipline $discipline, $data = [])
+    {
+        $data = collect($data);
+
+        $discipline->update($data->only(['name', 'code'])->toArray());
+
+        return $discipline->fresh();
+    }
 }

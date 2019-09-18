@@ -38,9 +38,9 @@
       <table class="table">
         <thread>
           <tr>
-            <th>{{ __('code') }}</th>
-            <th>{{ __('name') }}</th>
-            <th>{{ __('Actions') }}</th>
+            <th class="text-uppercase">{{ __('code') }}</th>
+            <th class="text-uppercase">{{ __('name') }}</th>
+            <th class="text-uppercase">{{ __('Actions') }}</th>
           </tr>
         </thread>
         <tbody>
@@ -49,7 +49,14 @@
             <tr>
               <td>{{ $discipline['code'] }}</td>
               <td>{{ $discipline['name'] }}</td>
-              <td>some actions</td>
+              <td>
+                <a href="{{ route('disciplinas.show', $discipline) }}" class="btn btn-success">
+                  <span class="fas fa-eye"/> {{ __('View') }}
+                </a>
+                <a href="{{ route('disciplinas.edit', $discipline) }}" class="btn btn-primary">
+                  <span class="fas fa-edit"/> {{ __('Edit') }}
+                </a>
+              </td>
             </tr>
           @endforeach
         @else
@@ -64,5 +71,7 @@
         </tbody>
       </table>
     </div>
+
+    {{ $disciplines->appends(request()->query())->links() }}
   @endcomponent
 @endsection

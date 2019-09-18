@@ -149,6 +149,7 @@ return [
         'city' => 'cidade',
         'neighborhood' => 'bairro',
         'role' => 'tipo de usuário',
-        'gender' => 'genêro'
+        'gender' => 'genêro',
+        'code' => 'código'
     ],
 ];

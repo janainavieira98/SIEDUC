@@ -13,7 +13,7 @@ class EditRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->user()->can('update', $this->route('discipline'));
     }
 
     /**
