@@ -41,6 +41,7 @@
             <th>{{ __('name') }}</th>
             <th>{{ __('email') }}</th>
             <th>{{ __('cpf') }}</th>
+            <th>{{ __('status') }}</th>
             <th>{{ __('Actions') }}</th>
           </tr>
         </thread>
@@ -51,6 +52,7 @@
               <td>{{ $user['name'] }}</td>
               <td>{{ $user['email'] }}</td>
               <td>{{ $user['cpf'] }}</td>
+              <td>{{ __($user['status'] ? 'active' : 'inactive') }}</td>
               <td>
                 <a href="{{ route('usuarios.show', $user) }}" class="btn btn-success">
                   <span class="fas fa-eye"/> {{ __('View') }}

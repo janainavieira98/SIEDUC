@@ -367,6 +367,29 @@
         </div>
       </div>
 
+      <div class="form-group row">
+        <label for="gender"
+               class="col-lg-2 col-form-label text-md-left text-capitalize">{{ __('gender') }}</label>
+
+        <div class="col-lg-10">
+          <div>
+            <select
+              id="gender"
+              type="text"
+              class="form-control @error('gender') is-invalid @enderror"
+              name="status"
+              required>
+              <option value="1" class="text-capitalize" {{ $user['status'] ? 'selected' : '' }}>{{ __('active') }}</option>
+              <option value="0" class="text-capitalize" {{ !$user['status'] ? 'selected' : '' }}>{{ __('inactive') }}</option>
+            </select>
+          </div>
+
+          @component('components.errors', ['errorKey' => 'gender'])
+          @endcomponent
+
+        </div>
+      </div>
+
       <div class="text-right">
         <a href="{{ route('usuarios.index') }}" class="btn btn-danger text-capitalize">{{ __('back') }}</a>
         <button class="btn btn-primary text-capitalize">{{ __('save') }}</button>

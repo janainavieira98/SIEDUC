@@ -51,5 +51,7 @@
     "save": "salvar",
     "Actions": "Ações",
     "Type something to search...": "Digite aqui para buscar...",
-    "search": "buscar"
+    "search": "buscar",
+    "active": "ativo",
+    "inactive": "inativo"
 }

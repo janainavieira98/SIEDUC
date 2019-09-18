@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('gender_id')->nullable();
             $table->unsignedBigInteger('role_id')->nullable();
             $table->string('uuid')->unique();
+            $table->boolean('status')->default(true);
 
             $table->string('api_token', 80)
                 ->unique()

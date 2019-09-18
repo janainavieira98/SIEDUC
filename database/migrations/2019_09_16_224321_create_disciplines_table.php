@@ -17,7 +17,6 @@ class CreateDisciplinesTable extends Migration
             $table->bigIncrements('id');
             $table->string('code')->unique();
             $table->string('name');
-            $table->float('course_load');
             $table->timestamps();
         });
     }

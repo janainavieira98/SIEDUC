@@ -28,7 +28,8 @@ class User extends BaseUser
         'address_id',
         'phone_id',
         'gender_id',
-        'role_id'
+        'role_id',
+        'status'
     ];
 
     public function setBirthdayAttribute($value)

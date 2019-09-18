@@ -57,7 +57,7 @@ class UserRepository
                     'email',
                     'birthday',
                     'rg',
-                    'cpf',
+                    'cpf'
                 ])->toArray(),
                 [
                     'password' => bcrypt($data->get('password')),
@@ -92,6 +92,7 @@ class UserRepository
                     'birthday',
                     'rg',
                     'cpf',
+                    'status'
                 ])->toArray(),
                 [
                     'gender_id' => $data->get('gender'),
