@@ -54,10 +54,6 @@ class Sidebar
                         'link' => '#'
                     ],
                     [
-                        'name' => __('register teacher'),
-                        'link' => '#'
-                    ],
-                    [
                         'name' => __('register user'),
                         'link' => route('usuarios.index'),
                         'show' => $this->can('viewAny', User::class)
