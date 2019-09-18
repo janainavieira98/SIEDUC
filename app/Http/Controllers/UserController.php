@@ -35,7 +35,7 @@ class UserController extends Controller
             ->userRepository
             ->filteredQuery($request->query())
             ->where('id', '!=', auth()->id())
-            ->paginate(1);
+            ->paginate(25);
 
         return view('pages.user.index', compact('users'));
     }
