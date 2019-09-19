@@ -10,7 +10,7 @@
 
 `cp .env.example .env`
 
-### Preencha o arquivo .env com as informações sobre banco de dados e sobre o usuario administrador
+Preencha o arquivo .env com as informações sobre banco de dados e sobre o usuario administrador
 
 Instalar dependencias do projeto
 
