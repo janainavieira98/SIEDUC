@@ -9,11 +9,17 @@ class Role extends Model
     public static $SECRETARY = 'secretary';
     public static $DIRECTOR = 'director';
     public static $TEACHER = 'teacher';
+    public static $STUDENT = 'student';
 
     protected $fillable = ['name', 'slug'];
 
+    public function scopeStudent($query)
+    {
+        return $query->where('slug', static::$STUDENT);
+    }
+
     public function scopeSecretary($query)
     {
-        return $query->where('slug', 'secretary');
+        return $query->where('slug', static::$SECRETARY);
     }
 }

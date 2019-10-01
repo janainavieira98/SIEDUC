@@ -82,4 +82,18 @@ class User extends BaseUser
         return 'uuid';
     }
 
+    public function scopeStudent($query)
+    {
+        return $query->whereHas('role', function($q) {
+           $q->where('slug', '=', Role::$STUDENT);
+        });
+    }
+
+    public function scopeInstitutionMember($query)
+    {
+        return $query->whereHas('role', function($q) {
+            $q->where('slug', '!=', Role::$STUDENT);
+        });
+    }
+
 }

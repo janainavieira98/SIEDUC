@@ -5,16 +5,16 @@
     'items' => [
       __('Home') => route('home'),
       __('users') => route('usuarios.index'),
-      __('Edit :entity', ['entity' => __('user')]) => url()->current(),
+      $page_title ?? __('Edit :entity', ['entity' => __('user')]) => url()->current(),
     ]
   ])
 
   @component('components.card')
     @slot('header')
-      <span class="text-capitalize">{{ __('Edit :entity', ['entity' => __('user')]) }}</span>
+      <span class="text-capitalize">{{ $page_title ?? __('Edit :entity', ['entity' => __('user')]) }}</span>
     @endslot
 
-    <form method="POST" action="{{ route('usuarios.update', $user) }}">
+    <form method="POST" action="{{ route($form_route ?? 'usuarios.update', $user) }}">
       @csrf
       @method('PUT')
 
@@ -293,31 +293,35 @@
         </div>
       </div>
 
-      <div class="form-group row">
-        <label for="role"
-               class="col-lg-2 col-form-label text-md-left text-capitalize">{{ __('role') }}</label>
+      @if(!isset($role))
+        <div class="form-group row">
+          <label for="role"
+                 class="col-lg-2 col-form-label text-md-left text-capitalize">{{ __('role') }}</label>
 
-        <div class="col-lg-10">
-          <div>
-            <select
-              id="role"
-              type="text"
-              class="form-control @error('role') is-invalid @enderror"
-              name="role"
-              required>
-              @foreach($roles as $role)
-                <option class="text-capitalize"
-                        value="{{ $role['id'] }}" {{ old('role', $user['role']['id']) == $role['id'] ? 'selected' : '' }}>{{ $role['name'] }}
-                </option>
-              @endforeach
-            </select>
+          <div class="col-lg-10">
+            <div>
+              <select
+                id="role"
+                type="text"
+                class="form-control @error('role') is-invalid @enderror"
+                name="role"
+                required>
+                @foreach($roles as $role)
+                  <option class="text-capitalize"
+                          value="{{ $role['id'] }}" {{ old('role', $user['role']['id']) == $role['id'] ? 'selected' : '' }}>{{ $role['name'] }}
+                  </option>
+                @endforeach
+              </select>
+            </div>
+
+            @component('components.errors', ['errorKey' => 'role'])
+            @endcomponent
+
           </div>
-
-          @component('components.errors', ['errorKey' => 'role'])
-          @endcomponent
-
         </div>
-      </div>
+      @else
+        <input type="hidden" name="role" value="{{ $role }}">
+      @endif
 
       <div class="form-group row">
         <label for="gender"
@@ -368,15 +372,15 @@
       </div>
 
       <div class="form-group row">
-        <label for="gender"
-               class="col-lg-2 col-form-label text-md-left text-capitalize">{{ __('gender') }}</label>
+        <label for="status"
+               class="col-lg-2 col-form-label text-md-left text-capitalize">{{ __('status') }}</label>
 
         <div class="col-lg-10">
           <div>
             <select
-              id="gender"
+              id="status"
               type="text"
-              class="form-control @error('gender') is-invalid @enderror"
+              class="form-control @error('status') is-invalid @enderror"
               name="status"
               required>
               <option value="1" class="text-capitalize" {{ $user['status'] ? 'selected' : '' }}>{{ __('active') }}</option>
@@ -384,14 +388,14 @@
             </select>
           </div>
 
-          @component('components.errors', ['errorKey' => 'gender'])
+          @component('components.errors', ['errorKey' => 'status'])
           @endcomponent
 
         </div>
       </div>
 
       <div class="text-right">
-        <a href="{{ route('usuarios.index') }}" class="btn btn-danger text-capitalize">{{ __('back') }}</a>
+        <a href="{{ route($back_route ?? 'usuarios.index') }}" class="btn btn-danger text-capitalize">{{ __('back') }}</a>
         <button class="btn btn-primary text-capitalize">{{ __('save') }}</button>
       </div>
     </form>

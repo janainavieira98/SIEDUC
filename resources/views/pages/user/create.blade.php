@@ -5,7 +5,7 @@
     'items' => [
       __('Home') => route('home'),
       __('users') => route('usuarios.index'),
-      __('register user') => route('usuarios.create'),
+      $page_title ?? __('register user') => route('usuarios.create'),
     ]
   ])
 
@@ -14,7 +14,7 @@
       <span class="text-capitalize">{{ __('register user') }}</span>
     @endslot
 
-    <form method="POST" action="{{ route('usuarios.store') }}">
+    <form method="POST" action="{{ route($form_route ?? 'usuarios.store') }}">
       @csrf
 
       <div class="form-group row">
@@ -347,31 +347,35 @@
         </div>
       </div>
 
-      <div class="form-group row">
-        <label for="role"
-               class="col-lg-2 col-form-label text-md-left text-capitalize">{{ __('role') }}</label>
+      @if(!isset($role))
+        <div class="form-group row">
+          <label for="role"
+                 class="col-lg-2 col-form-label text-md-left text-capitalize">{{ __('role') }}</label>
 
-        <div class="col-lg-10">
-          <div>
-            <select
-              id="role"
-              type="text"
-              class="form-control @error('role') is-invalid @enderror"
-              name="role"
-              required>
-              @foreach($roles as $role)
-                <option class="text-capitalize"
-                        value="{{ $role['id'] }}" {{ old('role') == $role['id'] ? 'selected' : '' }}>{{ $role['name'] }}
-                </option>
-              @endforeach
-            </select>
+          <div class="col-lg-10">
+            <div>
+              <select
+                id="role"
+                type="text"
+                class="form-control @error('role') is-invalid @enderror"
+                name="role"
+                required>
+                @foreach($roles as $role)
+                  <option class="text-capitalize"
+                          value="{{ $role['id'] }}" {{ old('role') == $role['id'] ? 'selected' : '' }}>{{ $role['name'] }}
+                  </option>
+                @endforeach
+              </select>
+            </div>
+
+            @component('components.errors', ['errorKey' => 'role'])
+            @endcomponent
+
           </div>
-
-          @component('components.errors', ['errorKey' => 'role'])
-          @endcomponent
-
         </div>
-      </div>
+      @else
+        <input type="hidden" name="role" value="{{ $role }}">
+      @endif
 
       <div class="form-group row">
         <label for="gender"
@@ -422,7 +426,7 @@
       </div>
 
       <div class="text-right">
-        <a href="{{ route('usuarios.index') }}" class="btn btn-danger text-capitalize">{{ __('back') }}</a>
+        <a href="{{ route($back_route ?? 'usuarios.index') }}" class="btn btn-danger text-capitalize">{{ __('back') }}</a>
         <button class="btn btn-primary text-capitalize">{{ __('register') }}</button>
       </div>
     </form>

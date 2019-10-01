@@ -43,7 +43,7 @@
     "This action is unauthorized": "Você não está autorizado a realizar essa ação",
     "users": "usuários",
     "user": "usuário",
-    "new user": "novo usuário",
+    "New :entity": "Novo :entity",
     "no records found": "nenhum registro encontrado",
     "View": "Visualizar",
     "View :entity": "Visualizar :entity",
@@ -57,5 +57,7 @@
     "Disciplines": "Disciplinas",
     "Discipline": "Disciplina",
     "Create :entity": "Criar :entity",
-    "code": "código"
+    "code": "código",
+    "student": "aluno",
+    "students": "alunos"
 }

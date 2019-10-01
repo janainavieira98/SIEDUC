@@ -4,7 +4,7 @@
   @include('components.breadcrumbs', [
     'items' => [
       __('Home') => route('home'),
-      __('users') => url()->current()
+      $page_title ?? __('users') => url()->current()
     ]
   ])
 
@@ -12,12 +12,16 @@
     @slot('header')
       <div
         class="d-flex flex-column flex-md-row justify-content-center justify-content-between align-items-center align-items-md-baseline">
-        <span class="text-capitalize mb-2 mb-md-0">{{ __('users') }}</span>
+        <span class="text-capitalize mb-2 mb-md-0">{{ $page_title ?? __('users') }}</span>
 
         <div>
-          <a href="{{ route('usuarios.create') }}" class="btn btn-primary text-uppercase font-weight-bold">
-            <span class="fas fa-plus"/> {{ __('new user') }}
-          </a>
+          @hasSection('new_link')
+            @yield('new_link')
+          @else
+            <a href="{{ route('usuarios.create') }}" class="btn btn-primary text-uppercase font-weight-bold">
+              <span class="fas fa-plus"/> {{ $new_label ?? __('New :entity', ['entity' => __('user')]) }}
+            </a>
+          @endif
         </div>
       </div>
     @endslot
@@ -42,6 +46,7 @@
             <th>{{ __('email') }}</th>
             <th>{{ __('cpf') }}</th>
             <th>{{ __('status') }}</th>
+            <th>{{ __('role') }}</th>
             <th>{{ __('Actions') }}</th>
           </tr>
         </thread>
@@ -53,11 +58,12 @@
               <td>{{ $user['email'] }}</td>
               <td>{{ $user['cpf'] }}</td>
               <td>{{ __($user['status'] ? 'active' : 'inactive') }}</td>
+              <td class="text-capitalize">{{ __($user['role']['name']) }}</td>
               <td>
-                <a href="{{ route('usuarios.show', $user) }}" class="btn btn-success">
+                <a href="{{ route($view_route ?? 'usuarios.show', $user) }}" class="btn btn-success">
                   <span class="fas fa-eye"/> {{ __('View') }}
                 </a>
-                <a href="{{ route('usuarios.edit', $user) }}" class="btn btn-primary">
+                <a href="{{ route($edit_route ?? 'usuarios.edit', $user) }}" class="btn btn-primary">
                   <span class="fas fa-edit"/> {{ __('Edit') }}
                 </a>
               </td>

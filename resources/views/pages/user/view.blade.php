@@ -5,13 +5,13 @@
     'items' => [
       __('Home') => route('home'),
       __('users') => route('usuarios.index'),
-      __('View :entity', ['entity' => __('user')]) => url()->current(),
+      $page_title ?? __('View :entity', ['entity' => __('user')]) => url()->current(),
     ]
   ])
 
   @component('components.card')
     @slot('header')
-      <span class="text-capitalize">{{ __('View :entity', ['entity' => __('user')]) }}</span>
+      <span class="text-capitalize">{{ $page_title ?? __('View :entity', ['entity' => __('user')]) }}</span>
     @endslot
 
     <div>
@@ -313,7 +313,7 @@
               type="text"
               class="form-control @error('birthday') is-invalid @enderror"
               name="birthday"
-              value="{{ $birthday }}"
+              value="{{ Carbon\Carbon::parse($birthday)->format('d/m/Y') }}"
               readonly
               disabled
             />
@@ -321,8 +321,32 @@
         </div>
       </div>
 
+      <div class="form-group row">
+        <label for="gender"
+               class="col-lg-2 col-form-label text-md-left text-capitalize">{{ __('status') }}</label>
+
+        <div class="col-lg-10">
+          <div>
+            <select
+              id="status"
+              type="text"
+              class="form-control @error('status') is-invalid @enderror"
+              name="status"
+              readonly
+              disabled
+              required>
+              <option selected disabled>{{ $status ? __('active') : __('inactive') }}</option>
+            </select>
+          </div>
+
+          @component('components.errors', ['errorKey' => 'status'])
+          @endcomponent
+
+        </div>
+      </div>
+
       <div class="text-right">
-        <a href="{{ route('usuarios.index') }}" class="btn btn-danger text-capitalize">{{ __('back') }}</a>
+        <a href="{{ route($back_route ?? 'usuarios.index') }}" class="btn btn-danger text-capitalize">{{ __('back') }}</a>
       </div>
     </div>
   @endcomponent

@@ -16,7 +16,8 @@ class RolesTableSeeder extends Seeder
         $roles = [
             'teacher' => 'professor',
             'secretary' => 'secretario',
-            'director' => 'diretor'
+            'director' => 'diretor',
+            'student' => 'aluno'
         ];
 
         DB::transaction(function () use ($roles) {

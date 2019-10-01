@@ -35,6 +35,12 @@ Route::resource('usuarios', 'UserController')
         'usuarios' => 'user'
     ]);
 
+Route::resource('alunos', 'StudentController')
+    ->except(['destroy'])
+    ->parameters([
+       'alunos' => 'user'
+    ]);
+
 Route::resource('disciplinas', 'DisciplineController')
     ->except(['destroy'])
     ->parameters([

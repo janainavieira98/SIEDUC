@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Role;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -44,7 +45,8 @@ class LoginController extends Controller
         $credentials = $request->only($this->username(), 'password');
 
         return array_merge($credentials, [
-            'status' => 1
+            'status' => 1,
+            'role_id' => Role::where('slug', '!=', Role::$STUDENT)->get(['id'])->toArray()
         ]);
     }
 }

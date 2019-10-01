@@ -23,7 +23,8 @@ class Sidebar
                 'items' => [
                     [
                         'name' => __('register student'),
-                        'link' => '#'
+                        'link' => route('alunos.index'),
+                        'show' => $this->can('viewAny', User::class)
                     ],
                     [
                         'name' => __('subscribe student'),

@@ -7,7 +7,7 @@ use App\Policies\DisciplinePolicy;
 use App\Policies\UserPolicy;
 use App\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
+use App\Auth\InstitutionUserProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -30,6 +30,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        $this->app->auth->provider('school_member', function($app, array $config) {
+           return new InstitutionUserProvider($app['hash'], $config['model']);
+        });
     }
 }
