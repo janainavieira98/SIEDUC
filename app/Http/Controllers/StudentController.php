@@ -49,7 +49,8 @@ class StudentController extends UserController
             'role' => Role::student()->first()->id,
             'page_title' => __('Create :entity', ['entity' => __('student')]),
             'back_route' => 'alunos.index',
-            'form_route' => 'alunos.store'
+            'form_route' => 'alunos.store',
+            'roles' => []
         ]);
     }
 
@@ -90,7 +91,8 @@ class StudentController extends UserController
             'page_title' => __('Edit :entity', ['entity' => __('student')]),
             'role' => Role::student()->first()->id,
             'back_route' => 'alunos.index',
-            'form_route' => 'alunos.update'
+            'form_route' => 'alunos.update',
+            'roles' => []
         ]);
     }
 

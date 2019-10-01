@@ -52,7 +52,7 @@ class UserController extends Controller
 
     public function create(CreateRequest $request, $data = [])
     {
-        $roles = Role::get();
+        $roles = $data['roles'] ?? Role::institutionMember()->get();
         $genders = Gender::get();
 
         return view('pages.user.create', compact('roles', 'genders'), $data);
@@ -79,7 +79,7 @@ class UserController extends Controller
     public function edit(EditRequest $request, User $user, $data = [])
     {
         $user->load(['role', 'gender', 'address', 'phone']);
-        $roles = Role::get();
+        $roles = $data['roles'] ?? Role::institutionMember()->get();
         $genders = Gender::get();
 
         return view('pages.user.edit', compact('user', 'roles', 'genders'), $data);

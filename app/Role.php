@@ -13,6 +13,11 @@ class Role extends Model
 
     protected $fillable = ['name', 'slug'];
 
+    public function scopeInstitutionMember($query)
+    {
+        return $query->where('slug', '!=', static::$STUDENT);
+    }
+
     public function scopeStudent($query)
     {
         return $query->where('slug', static::$STUDENT);
