@@ -47,10 +47,7 @@ class Sidebar
             [
                 'name' => __('manage system'),
                 'items' => [
-                    [
-                        'name' => __('register school'),
-                        'link' => '#'
-                    ],
+                
                     [
                         'name' => __('register discipline'),
                         'link' => route('disciplinas.index'),
