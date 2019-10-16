@@ -58,6 +58,26 @@
         </div>
       </div>
 
+      <div class="form-group row">
+        <label for="timeload" class="col-lg-2 col-form-label text-md-left text-capitalize">{{ __('timeload') }}</label>
+
+        <div class="col-lg-10">
+          <div>
+            <input
+              id="timeload"
+              type="number"
+              class="form-control @error('timeload') is-invalid @enderror"
+              name="timeload"
+              value="{{ old('timeload', $discipline['timeload']) }}"
+              required
+            />
+          </div>
+
+          @component('components.errors', ['errorKey' => 'timeload'])
+          @endcomponent
+        </div>
+      </div>
+
       <div class="text-right">
         <a href="{{ route('disciplinas.index') }}" class="btn btn-danger text-capitalize">{{ __('back') }}</a>
         <button type="submit" class="btn btn-primary text-capitalize">{{ __('register') }}</button>

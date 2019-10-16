@@ -42,6 +42,7 @@
     "if you are having trouble clicking :actionText the button bellow, copy and paste the below url into your web browser [:actionURL](:actionURL)": "Se você estiver tendo problemas ao clicar no botão \":actionText\" , copie e cole o link abaixo no seu navegador [:actionURL](:actionURL)",
     "This action is unauthorized": "Você não está autorizado a realizar essa ação",
     "users": "usuários",
+    "timeload": "carga horária",
     "user": "usuário",
     "New :entity": "Novo :entity",
     "no records found": "nenhum registro encontrado",

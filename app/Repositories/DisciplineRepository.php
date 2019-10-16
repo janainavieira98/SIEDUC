@@ -19,7 +19,7 @@ class DisciplineRepository extends BaseRepository
     {
         $data = collect($data);
 
-        $discipline->update($data->only(['name', 'code'])->toArray());
+        $discipline->update($data->only(['name', 'code', 'timeload'])->toArray());
 
         return $discipline->fresh();
     }

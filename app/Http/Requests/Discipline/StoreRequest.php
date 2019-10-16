@@ -15,7 +15,8 @@ class StoreRequest extends CreateRequest
     {
         return [
             'code' => 'required|string|unique:disciplines',
-            'name' => 'required|string'
+            'name' => 'required|string',
+            'timeload' => 'required|integer'
         ];
     }
 }

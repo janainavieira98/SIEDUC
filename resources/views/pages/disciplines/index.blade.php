@@ -40,6 +40,7 @@
           <tr>
             <th class="text-uppercase">{{ __('code') }}</th>
             <th class="text-uppercase">{{ __('name') }}</th>
+            <th class="text-uppercase">{{ __('timeload') }}</th>
             <th class="text-uppercase">{{ __('Actions') }}</th>
           </tr>
         </thread>
@@ -49,6 +50,7 @@
             <tr>
               <td>{{ $discipline['code'] }}</td>
               <td>{{ $discipline['name'] }}</td>
+              <td>{{ $discipline['timeload'] }} horas</td>
               <td>
                 <a href="{{ route('disciplinas.show', $discipline) }}" class="btn btn-success">
                   <span class="fas fa-eye"/> {{ __('View') }}

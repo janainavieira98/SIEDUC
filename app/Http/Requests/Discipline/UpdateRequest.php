@@ -20,7 +20,8 @@ class UpdateRequest extends EditRequest
                 'string',
                 Rule::unique('disciplines', 'code')->ignoreModel($this->route('discipline'), 'id')
             ],
-            'name' => 'required|string'
+            'name' => 'required|string',
+            'timeload' => 'required|integer'
         ];
     }
 }
