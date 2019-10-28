@@ -18,3 +18,5 @@ services:
       MYSQL_DATABASE: tg
       MYSQL_USER: tguser
       MYSQL_PASSWORD: tgpassword
+    ports:
+      - 3306:3306
