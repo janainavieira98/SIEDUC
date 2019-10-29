@@ -4,6 +4,7 @@
 namespace App\ViewComposers;
 
 
+use App\Classroom;
 use App\Discipline;
 use App\User;
 use Illuminate\View\View;
@@ -47,7 +48,11 @@ class Sidebar
             [
                 'name' => __('manage system'),
                 'items' => [
-                
+                    [
+                        'name' => __('register class'),
+                        'link' => route('classes.index'),
+                        'show' => $this->can('viewAny', Classroom::class)
+                    ],
                     [
                         'name' => __('register discipline'),
                         'link' => route('disciplinas.index'),

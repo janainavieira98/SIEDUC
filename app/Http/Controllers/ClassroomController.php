@@ -3,18 +3,36 @@
 namespace App\Http\Controllers;
 
 use App\Classroom;
+use App\Http\Requests\Classroom\CreateRequest;
+use App\Http\Requests\Classroom\ViewAnyRequest;
+use App\Repositories\ClassroomRepository;
 use Illuminate\Http\Request;
 
 class ClassroomController extends Controller
 {
     /**
+     * @var ClassroomRepository
+     */
+    protected $classroomRepository;
+
+    public function __construct(ClassroomRepository $classroomRepository)
+    {
+        $this->classroomRepository = $classroomRepository;
+    }
+
+    /**
      * Display a listing of the resource.
      *
+     * @param ViewAnyRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ViewAnyRequest $request)
     {
-        //
+        $classrooms = $this->classroomRepository
+            ->filteredQuery($request->query())
+            ->paginate(25);
+
+        return view('pages.classrooms.index', compact('classrooms'));
     }
 
     /**
@@ -22,9 +40,9 @@ class ClassroomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(CreateRequest $request)
     {
-        //
+        return view('pages.classrooms.create');
     }
 
     /**
@@ -35,7 +53,15 @@ class ClassroomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $classroom = $this->classroomRepository->create($request->all());
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return $classroom;
+        }
+
+        return redirect()->route('classes.index')->with([
+            'message' => __('successfully registered :entity', ['entity' => __('classroom')])
+        ]);
     }
 
     /**

@@ -11,8 +11,6 @@
 |
 */
 
-use App\Mail\WelcomeEmail;
-
 Route::get('/', function () {
     return view('welcome');
 })->middleware('guest');
@@ -38,11 +36,17 @@ Route::resource('usuarios', 'UserController')
 Route::resource('alunos', 'StudentController')
     ->except(['destroy'])
     ->parameters([
-       'alunos' => 'user'
+        'alunos' => 'user'
     ]);
 
 Route::resource('disciplinas', 'DisciplineController')
     ->except(['destroy'])
     ->parameters([
         'disciplinas' => 'discipline'
+    ]);
+
+Route::resource('classes', 'ClassroomController')
+    ->except(['destroy'])
+    ->parameters([
+        'classes' => 'classroom'
     ]);

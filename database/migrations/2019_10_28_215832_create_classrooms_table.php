@@ -24,6 +24,7 @@ class CreateClassroomsTable extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->integer('max_users')->default(40);
+            $table->string('slug')->unique();
             $table->timestamps();
 
             $table->foreign('period_slug')

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Discipline;
+use App\Http\Requests\Classroom\CreateRequest;
 use App\Http\Requests\Discipline\EditRequest;
 use App\Http\Requests\Discipline\StoreRequest;
 use App\Http\Requests\Discipline\UpdateRequest;
+use App\Http\Requests\Discipline\ViewAnyRequest;
 use App\Http\Requests\Discipline\ViewRequest;
 use App\Repositories\DisciplineRepository;
 use Illuminate\Http\Request;
@@ -27,9 +29,10 @@ class DisciplineController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param ViewAnyRequest $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index(ViewAnyRequest $request)
     {
         $disciplines = $this
             ->disciplineRepository
@@ -42,9 +45,10 @@ class DisciplineController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param CreateRequest $request
      * @return Response
      */
-    public function create()
+    public function create(CreateRequest $request)
     {
         return view('pages.disciplines.create');
     }

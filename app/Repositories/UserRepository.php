@@ -84,7 +84,7 @@ class UserRepository extends BaseRepository
         });
     }
 
-    public function sortable(): array
+    public function searchable(): array
     {
         return ['name', 'email', 'cpf', 'rg'];
     }

@@ -10,7 +10,7 @@ class DisciplineRepository extends BaseRepository
 {
     public static $model = Discipline::class;
 
-    public function sortable(): array
+    public function searchable(): array
     {
         return ['code', 'name'];
     }

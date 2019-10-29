@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
+use App\Auth\InstitutionUserProvider;
+use App\Classroom;
 use App\Discipline;
+use App\Policies\ClassroomPolicy;
 use App\Policies\DisciplinePolicy;
 use App\Policies\UserPolicy;
 use App\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use App\Auth\InstitutionUserProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -18,7 +20,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         User::class => UserPolicy::class,
-        Discipline::class => DisciplinePolicy::class
+        Discipline::class => DisciplinePolicy::class,
+        Classroom::class => ClassroomPolicy::class
     ];
 
     /**
@@ -30,8 +33,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        $this->app->auth->provider('school_member', function($app, array $config) {
-           return new InstitutionUserProvider($app['hash'], $config['model']);
+        $this->app->auth->provider('school_member', function ($app, array $config) {
+            return new InstitutionUserProvider($app['hash'], $config['model']);
         });
     }
 }

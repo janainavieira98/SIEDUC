@@ -12,6 +12,11 @@ class Period extends Model
         'slug'
     ];
 
+    protected function getSlugAttribute()
+    {
+        return $this->attributes['slug'];
+    }
+
     public function classrooms()
     {
         return $this->hasMany(Classroom::class);

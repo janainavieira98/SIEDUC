@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class BaseRepository
 {
-    abstract public function sortable(): array;
+    abstract public function searchable(): array;
 
     public static $model;
 
@@ -29,7 +29,7 @@ abstract class BaseRepository
 
         if (isset($data['search'])) {
             $search = $data['search'];
-            $fields = $this->sortable();
+            $fields = $this->searchable();
 
             $query->where(function ($q) use ($search, $fields) {
                 foreach ($fields as $field) {
