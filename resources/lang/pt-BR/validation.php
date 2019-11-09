@@ -150,6 +150,15 @@ return [
         'neighborhood' => 'bairro',
         'role' => 'tipo de usuário',
         'gender' => 'genêro',
-        'code' => 'código'
+        'code' => 'código',
+        'weekdays' => 'dias da semana',
+        'max_users' => 'número de vagas',
+        'start_date' => 'data inicial',
+        'end_date' => 'data final',
+        'year' => 'ano',
+        'start_hour' => 'hora de inicio',
+        'end_hour' => 'hora final',
+        'team' => 'turma',
+        'grade' => 'série'
     ],
 ];

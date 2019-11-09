@@ -21,6 +21,11 @@ class Classroom extends Model
         'max_users'
     ];
 
+    public function period()
+    {
+        return $this->belongsTo(Period::class);
+    }
+
     public function weekdays()
     {
         return $this->belongsToMany(Weekday::class);

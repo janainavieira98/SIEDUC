@@ -18,7 +18,8 @@ class PeriodTableSeeder extends Seeder
                 $periods = collect([
                     'morning',
                     'evening',
-                    'night'
+                    'night',
+                    'all_day'
                 ]);
 
                 $periods->each(function ($period) {

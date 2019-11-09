@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Classroom;
 use App\Http\Requests\Classroom\CreateRequest;
+use App\Http\Requests\Classroom\EditRequest;
+use App\Http\Requests\Classroom\StoreRequest;
+use App\Http\Requests\Classroom\UpdateRequest;
 use App\Http\Requests\Classroom\ViewAnyRequest;
+use App\Http\Requests\Classroom\ViewRequest;
+use App\Period;
 use App\Repositories\ClassroomRepository;
+use App\Weekday;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ClassroomController extends Controller
 {
@@ -24,12 +32,13 @@ class ClassroomController extends Controller
      * Display a listing of the resource.
      *
      * @param ViewAnyRequest $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(ViewAnyRequest $request)
     {
         $classrooms = $this->classroomRepository
             ->filteredQuery($request->query())
+            ->with(['period'])
             ->paginate(25);
 
         return view('pages.classrooms.index', compact('classrooms'));
@@ -38,20 +47,28 @@ class ClassroomController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create(CreateRequest $request)
     {
-        return view('pages.classrooms.create');
+        $periods = Period::get()->sortBy(function($period) {
+            return $period->description;
+        });
+        $weekDays = Weekday::get()->sortBy(function($period) {
+            $date = Carbon::createFromFormat('l', ucfirst($period['slug']))->weekday();
+            return $date;
+        })->values();
+
+        return view('pages.classrooms.create', compact('periods', 'weekDays'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $classroom = $this->classroomRepository->create($request->all());
 
@@ -67,42 +84,60 @@ class ClassroomController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Classroom  $classroom
-     * @return \Illuminate\Http\Response
+     * @param Classroom $classroom
+     * @param ViewRequest $request
+     * @return void
      */
-    public function show(Classroom $classroom)
+    public function show(Classroom $classroom, ViewRequest $request)
     {
-        //
+        $classroom->load(['weekdays']);
+        return view('pages.classrooms.view', compact('classroom'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Classroom  $classroom
-     * @return \Illuminate\Http\Response
+     * @param Classroom $classroom
+     * @return Response
      */
-    public function edit(Classroom $classroom)
+    public function edit(Classroom $classroom, EditRequest $request)
     {
-        //
+        $periods = Period::get()->sortBy(function($period) {
+            return $period->description;
+        });
+        $weekDays = Weekday::get()->sortBy(function($period) {
+            $date = Carbon::createFromFormat('l', ucfirst($period['slug']))->weekday();
+            return $date;
+        })->values();
+
+        return view('pages.classrooms.update', compact('periods', 'weekDays', 'classroom'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Classroom  $classroom
-     * @return \Illuminate\Http\Response
+     * @param UpdateRequest $request
+     * @param Classroom $classroom
+     * @return Response
      */
-    public function update(Request $request, Classroom $classroom)
+    public function update(UpdateRequest $request, Classroom $classroom)
     {
-        //
+        $classroom = $this->classroomRepository->update($classroom,$request->all());
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return $classroom;
+        }
+
+        return redirect()->route('classes.index')->with([
+            'message' => __('successfully updated :entity', ['entity' => __('classroom')])
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Classroom  $classroom
-     * @return \Illuminate\Http\Response
+     * @param Classroom $classroom
+     * @return Response
      */
     public function destroy(Classroom $classroom)
     {

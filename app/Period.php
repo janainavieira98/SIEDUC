@@ -6,11 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Period extends Model
 {
+    protected $appends = ['description'];
+
     protected $primaryKey = 'slug';
 
     protected $fillable = [
         'slug'
     ];
+
+    public function getDescriptionAttribute()
+    {
+        return __($this->attributes['slug']);
+    }
 
     protected function getSlugAttribute()
     {

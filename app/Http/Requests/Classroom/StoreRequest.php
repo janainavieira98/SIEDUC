@@ -35,7 +35,15 @@ class StoreRequest extends CreateRequest
             ],
             'start_date' => 'required|date|before:end_date',
             'end_date' => 'required|date|after:start_date',
-            'max_users' => 'required|integer'
+            'max_users' => 'required|integer',
+            'weekdays' => [
+                'required',
+                'array',
+                'min:1'
+            ],
+            'weekdays.*' => [
+                'exists:weekdays,slug'
+            ]
         ];
     }
 }

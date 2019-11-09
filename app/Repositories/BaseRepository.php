@@ -41,7 +41,7 @@ abstract class BaseRepository
         return $query;
     }
 
-    public function create(array $data)
+    public function create($data)
     {
         return $this->getInstance()->create($data);
     }
