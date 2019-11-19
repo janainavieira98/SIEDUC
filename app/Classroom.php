@@ -50,4 +50,14 @@ class Classroom extends Model
     {
         return 'slug';
     }
+
+    public function teachers()
+    {
+        return $this->belongsToMany(User::class, 'classroom_discipline_user')->using(ClassroomDisciplineUser::class);
+    }
+
+    public function disciplines()
+    {
+        return $this->belongsToMany(Discipline::class, 'classroom_discipline_user')->using(ClassroomDisciplineUser::class);
+    }
 }

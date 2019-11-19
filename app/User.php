@@ -96,4 +96,14 @@ class User extends BaseUser
         });
     }
 
+    public function teachClassrooms()
+    {
+        return $this->belongsToMany(Classroom::class, 'classroom_discipline_user')->using(ClassroomDisciplineUser::class);
+    }
+
+    public function teachDisciplines()
+    {
+        return $this->belongsToMany(Discipline::class, 'classroom_discipline_user')->using(ClassroomDisciplineUser::class);
+    }
+
 }

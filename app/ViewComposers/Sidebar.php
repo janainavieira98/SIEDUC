@@ -42,6 +42,10 @@ class Sidebar
                     [
                         'name' => __('generate history'),
                         'link' => '#'
+                    ],
+                    [
+                        'name' => __('link disciplines'),
+                        'link' => '#'
                     ]
                 ]
             ],
