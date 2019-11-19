@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Discipline;
 
+use App\Discipline;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ViewAnyRequest extends FormRequest
@@ -13,7 +14,7 @@ class ViewAnyRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->user()->can('viewAny', Discipline::class);
     }
 
     /**
