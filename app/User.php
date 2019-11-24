@@ -96,6 +96,13 @@ class User extends BaseUser
         });
     }
 
+    public function scopeTeachers($query)
+    {
+        return $query->whereHas('role', function($q) {
+            $q->where('slug', '=', Role::$TEACHER);
+        });
+    }
+
     public function teachClassrooms()
     {
         return $this->belongsToMany(Classroom::class, 'classroom_discipline_user')->using(ClassroomDisciplineUser::class);

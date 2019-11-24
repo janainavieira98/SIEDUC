@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use App\Auth\InstitutionUserProvider;
 use App\Classroom;
+use App\ClassroomDisciplineUser;
 use App\Discipline;
+use App\Policies\ClassroomDisciplineUserPolicy;
 use App\Policies\ClassroomPolicy;
 use App\Policies\DisciplinePolicy;
 use App\Policies\UserPolicy;
@@ -21,7 +23,8 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         User::class => UserPolicy::class,
         Discipline::class => DisciplinePolicy::class,
-        Classroom::class => ClassroomPolicy::class
+        Classroom::class => ClassroomPolicy::class,
+        ClassroomDisciplineUser::class => ClassroomDisciplineUserPolicy::class
     ];
 
     /**

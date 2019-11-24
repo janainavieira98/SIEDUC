@@ -159,6 +159,11 @@ return [
         'start_hour' => 'hora de inicio',
         'end_hour' => 'hora final',
         'team' => 'turma',
-        'grade' => 'série'
+        'grade' => 'série',
+        'user_id' => 'usuario',
+        'classroom_id' => 'classe',
+        'discipline_id' => 'disciplina',
+        'hour' => 'hora',
+        'weekday_slug' => 'dia'
     ],
 ];

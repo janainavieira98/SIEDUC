@@ -54,10 +54,7 @@ class ClassroomController extends Controller
         $periods = Period::get()->sortBy(function($period) {
             return $period->description;
         });
-        $weekDays = Weekday::get()->sortBy(function($period) {
-            $date = Carbon::createFromFormat('l', ucfirst($period['slug']))->weekday();
-            return $date;
-        })->values();
+        $weekDays = sortWeekdays(Weekday::get())->values();
 
         return view('pages.classrooms.create', compact('periods', 'weekDays'));
     }

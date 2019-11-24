@@ -5,6 +5,7 @@ namespace App\ViewComposers;
 
 
 use App\Classroom;
+use App\ClassroomDisciplineUser;
 use App\Discipline;
 use App\User;
 use Illuminate\View\View;
@@ -45,7 +46,8 @@ class Sidebar
                     ],
                     [
                         'name' => __('link disciplines'),
-                        'link' => '#'
+                        'link' => route('vincular-disciplinas.index'),
+                        'show' => $this->can('viewAny', ClassroomDisciplineUser::class)
                     ]
                 ]
             ],

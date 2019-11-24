@@ -9,6 +9,14 @@ class ClassroomDisciplineUser extends Pivot
     public $incrementing = true;
     protected $primaryKey = 'id';
     protected $table = 'classroom_discipline_user';
+    public $timestamps = false;
+
+    protected $fillable = ['classroom_id', 'discipline_id', 'user_id', 'hour', 'weekday_slug'];
+
+    public function weekday()
+    {
+        return $this->belongsTo(Weekday::class);
+    }
 
     public function classroom()
     {

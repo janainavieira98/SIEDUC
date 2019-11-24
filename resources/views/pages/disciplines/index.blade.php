@@ -12,7 +12,7 @@
     @slot('header')
       <div
         class="d-flex flex-column flex-md-row justify-content-center justify-content-between align-items-center align-items-md-baseline">
-        <span class="text-capitalize mb-2 mb-md-0">{{ __('disciplines') }}</span>
+        <span class="text-capitalize mb-2 mb-md-0">{{ __('Disciplines') }}</span>
 
         <div>
           <a href="{{ route('disciplinas.create') }}" class="btn btn-primary text-uppercase font-weight-bold">

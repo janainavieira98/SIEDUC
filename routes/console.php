@@ -23,8 +23,8 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
 
-Artisan::command('create-admin', function() {
-    DB::transaction(function() {
+Artisan::command('create-admin', function () {
+    DB::transaction(function () {
         $address = Address::create(config('auth.admin.address'));
         $phone = Phone::create(config('auth.admin.phone'));
         $user = User::create(array_merge(config('auth.admin.user'), [

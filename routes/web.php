@@ -27,26 +27,35 @@ Route::group(['namespace' => 'Auth'], function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('usuarios', 'UserController')
-    ->except(['destroy'])
-    ->parameters([
-        'usuarios' => 'user'
-    ]);
+Route::group(['middleware' => 'auth'], function () {
 
-Route::resource('alunos', 'StudentController')
-    ->except(['destroy'])
-    ->parameters([
-        'alunos' => 'user'
-    ]);
+    Route::resource('usuarios', 'UserController')
+        ->except(['destroy'])
+        ->parameters([
+            'usuarios' => 'user'
+        ]);
 
-Route::resource('disciplinas', 'DisciplineController')
-    ->except(['destroy'])
-    ->parameters([
-        'disciplinas' => 'discipline'
-    ]);
+    Route::resource('alunos', 'StudentController')
+        ->except(['destroy'])
+        ->parameters([
+            'alunos' => 'user'
+        ]);
 
-Route::resource('classes', 'ClassroomController')
-    ->except(['destroy'])
-    ->parameters([
-        'classes' => 'classroom'
-    ]);
+    Route::resource('disciplinas', 'DisciplineController')
+        ->except(['destroy'])
+        ->parameters([
+            'disciplinas' => 'discipline'
+        ]);
+
+    Route::resource('classes', 'ClassroomController')
+        ->except(['destroy'])
+        ->parameters([
+            'classes' => 'classroom'
+        ]);
+
+    Route::resource('vincular-disciplinas', 'ClassroomDisciplineUserController')
+        ->except(['destroy'])
+        ->parameters([
+            'vincular-disciplinas' => 'classroom_discipline_user'
+        ]);
+});
