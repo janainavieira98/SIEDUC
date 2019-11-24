@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ClassroomDisciplineUser;
 use App\Http\Requests\ClassroomDisciplineUser\CreateRequest;
+use App\Http\Requests\ClassroomDisciplineUser\DeleteRequest;
 use App\Http\Requests\ClassroomDisciplineUser\StoreRequest;
 use App\Http\Requests\ClassroomDisciplineUser\ViewAnyRequest;
 use App\Repositories\ClassroomDisciplineUserRepository;
@@ -128,11 +129,16 @@ class ClassroomDisciplineUserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param DeleteRequest $request
      * @param \App\ClassroomDisciplineUser $classroomDisciplineUser
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ClassroomDisciplineUser $classroomDisciplineUser)
+    public function destroy(DeleteRequest $request, ClassroomDisciplineUser $classroomDisciplineUser)
     {
-        //
+        $this->classroomDisciplineUserRepository->deleteModel($classroomDisciplineUser);
+
+        return redirect()->route('vincular-disciplinas.index')->with([
+            'message' => 'Vinculo apagado com sucesso!'
+        ]);
     }
 }

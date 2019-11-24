@@ -71,7 +71,7 @@
           @endforeach
         @else
           <tr>
-            <td colspan="4">
+            <td colspan="6">
               <div class="text-center">
                 {{ __('no records found') }}
               </div>

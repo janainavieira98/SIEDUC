@@ -54,8 +54,14 @@ Route::group(['middleware' => 'auth'], function () {
         ]);
 
     Route::resource('vincular-disciplinas', 'ClassroomDisciplineUserController')
-        ->except(['destroy'])
         ->parameters([
             'vincular-disciplinas' => 'classroom_discipline_user'
         ]);
+
+    Route::resource('matriculas', 'EnrollmentController')
+        ->parameters([
+            'matriculas' => 'enrollment'
+        ]);
+
+
 });

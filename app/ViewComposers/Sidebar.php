@@ -7,6 +7,7 @@ namespace App\ViewComposers;
 use App\Classroom;
 use App\ClassroomDisciplineUser;
 use App\Discipline;
+use App\Enrollment;
 use App\User;
 use Illuminate\View\View;
 
@@ -30,7 +31,8 @@ class Sidebar
                     ],
                     [
                         'name' => __('subscribe student'),
-                        'link' => '#'
+                        'link' => route('matriculas.index'),
+                        'show' => $this->can('viewAny', Enrollment::class)
                     ],
                     [
                         'name' => __('scores and presence'),

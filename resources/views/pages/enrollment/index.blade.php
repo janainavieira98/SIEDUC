@@ -4,8 +4,7 @@
   @include('components.breadcrumbs', [
    'items' => [
      __('Home') => route('home'),
-     __('Create :entity', ['entity' => __('Discipline')]) => route('disciplinas.index'),
-     __('link disciplines') => url()->current()
+     'Matriculas' => url()->current()
    ]
  ])
 
@@ -13,11 +12,11 @@
     @slot('header')
       <div
         class="d-flex flex-column flex-md-row justify-content-center justify-content-between align-items-center align-items-md-baseline">
-        <span class="text-capitalize mb-2 mb-md-0">{{ __('link disciplines') }}</span>
+        <span class="text-capitalize mb-2 mb-md-0">Matriculas</span>
 
         <div>
-          <a href="{{ route('vincular-disciplinas.create') }}" class="btn btn-primary text-uppercase font-weight-bold">
-            <span class="fas fa-plus"/> {{ __('Create :entity', ['entity' => __('link')]) }}
+          <a href="{{ route('matriculas.create') }}" class="btn btn-primary text-uppercase font-weight-bold">
+            <span class="fas fa-plus"/> Cadastrar Matricula
           </a>
         </div>
       </div>
@@ -38,32 +37,32 @@
     <div class="table-responsive">
       <table class="table">
         <thead>
-          <tr>
-            <td>{{ __('teacher') }}</td>
-            <td>{{ __('Discipline') }}</td>
-            <td>{{ __('Classroom') }}</td>
-            <td>Dia</td>
-            <td>Hora</td>
-            <td>{{ __('Actions') }}</td>
-          </tr>
+        <tr>
+          <td>Registro de Matricula</td>
+          <td>Numero da Chamada</td>
+          <td>Aluno</td>
+          <td>Classe</td>
+          <td>Tipo de Matricula</td>
+          <td>Ações</td>
+        </tr>
         </thead>
         <tbody>
         @if($records->count())
           @foreach($records as $record)
             <tr>
-              <td>{{ $record->user->name }}</td>
-              <td>{{ $record->discipline->name }}</td>
-              <td>{{ $record->classroom->description }}</td>
-              <td>{{ ucfirst($record->weekday->description) }}</td>
-              <td>{{ $record->hour }}</td>
+              <td>{{ $record['id'] }}</td>
+              <td>{{ $record['roll_id'] }}</td>
+              <td>{{ $record['user']['name'] }}</td>
+              <td>{{ $record['classroom']['description'] }}</td>
+              <td>{{ __($record['enrollmentType']['description']) }}</td>
               <td>
-                <form action="{{ route('vincular-disciplinas.destroy', $record) }}" method="POST">
+                <form action="{{ route('matriculas.destroy', $record) }}" method="POST">
                   @method('DELETE')
                   @csrf
                   <button
                     class="btn btn-danger"
                     type="submit"
-                    onclick="confirm('Tem certeza que deseja apagar essa disciplina?') || event.preventDefault()">
+                    onclick="confirm('Tem certeza que deseja apagar esta matricula ?') || event.preventDefault()">
                     Apagar
                   </button>
                 </form>

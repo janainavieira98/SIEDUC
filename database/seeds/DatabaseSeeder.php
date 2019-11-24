@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(GendersTableSeeder::class);
         $this->call(WeekdayTableSeeder::class);
         $this->call(PeriodTableSeeder::class);
+        $this->call(EnrollmentTypeSeeder::class);
     }
 }

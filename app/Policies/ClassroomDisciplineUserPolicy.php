@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Classroom;
 use App\ClassroomDisciplineUser;
 use App\Discipline;
+use App\Role;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -75,7 +76,7 @@ class ClassroomDisciplineUserPolicy
      */
     public function delete(User $user, ClassroomDisciplineUser $classroomDisciplineUser)
     {
-        return false;
+        return $user->role_slug == Role::$DIRECTOR || $user->role_slug == Role::$SECRETARY;
     }
 
     /**

@@ -41,4 +41,9 @@ class ClassroomDisciplineUserRepository extends BaseRepository
         $collection = collect($data);
         return parent::create($collection->only(['classroom_id', 'user_id', 'discipline_id', 'hour', 'weekday_slug'])->toArray());
     }
+
+    public function deleteModel(ClassroomDisciplineUser $classroomDisciplineUser)
+    {
+        $classroomDisciplineUser->delete();
+    }
 }
