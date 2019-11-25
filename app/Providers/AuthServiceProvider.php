@@ -7,10 +7,12 @@ use App\Classroom;
 use App\ClassroomDisciplineUser;
 use App\Discipline;
 use App\Enrollment;
+use App\Grade;
 use App\Policies\ClassroomDisciplineUserPolicy;
 use App\Policies\ClassroomPolicy;
 use App\Policies\DisciplinePolicy;
 use App\Policies\EnrollmentPolicy;
+use App\Policies\GradePolicy;
 use App\Policies\UserPolicy;
 use App\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -27,7 +29,8 @@ class AuthServiceProvider extends ServiceProvider
         Discipline::class => DisciplinePolicy::class,
         Classroom::class => ClassroomPolicy::class,
         ClassroomDisciplineUser::class => ClassroomDisciplineUserPolicy::class,
-        Enrollment::class => EnrollmentPolicy::class
+        Enrollment::class => EnrollmentPolicy::class,
+        Grade::class => GradePolicy::class
     ];
 
     /**
