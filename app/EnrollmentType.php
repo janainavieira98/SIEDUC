@@ -20,7 +20,7 @@ class EnrollmentType extends Pivot
 
     public function getSlugAttribute()
     {
-        return $this->attributes['slug'];
+        return $this->attributes['slug'] ?? null;
     }
 
 
