@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Grade;
 
+use App\Grade;
 use Illuminate\Foundation\Http\FormRequest;
 
 class EditRequest extends FormRequest
@@ -13,7 +14,19 @@ class EditRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->can('update', $this->route('grade'));
+        $record = Grade::whereHas('classroom', function ($query) {
+            $query->where('classrooms.id', $this->route('classroom')->id)
+                ->whereHas('disciplines', function ($query) {
+                    $query->where('disciplines.id', $this->route('discipline')->id);
+                });
+        })->where('user_id', $this->route('user')->id)
+            ->first();
+
+        if (!$record) {
+            return false;
+        }
+
+        return auth()->user()->can('update', $record);
     }
 
     /**

@@ -2,10 +2,13 @@
 
 namespace App;
 
+use App\Enhancements\HasDisciplinesThroughClassrooms;
 use Illuminate\Database\Eloquent\Model;
 
 class Enrollment extends Model
 {
+    use HasDisciplinesThroughClassrooms;
+
     protected $fillable = ['user_id', 'classroom_id', 'date', 'enrollment_type_slug', 'roll_id'];
 
     public function user()

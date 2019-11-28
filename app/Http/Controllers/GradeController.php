@@ -2,84 +2,145 @@
 
 namespace App\Http\Controllers;
 
+use App\Classroom;
+use App\Discipline;
 use App\Grade;
-use Illuminate\Http\Request;
+use App\Http\Requests\Grade\CreateRequest;
+use App\Http\Requests\Grade\EditRequest;
+use App\Http\Requests\Grade\StoreRequest;
+use App\Http\Requests\Grade\UpdateRequest;
+use App\Http\Requests\Grade\ViewAnyRequest;
+use App\Repositories\ClassroomRepository;
+use App\Repositories\DisciplineRepository;
+use App\Repositories\GradeRepository;
+use App\User;
 
 class GradeController extends Controller
 {
     /**
+     * @var GradeRepository
+     */
+    protected $gradeRepository;
+    /**
+     * @var ClassroomRepository
+     */
+    protected $classroomRepository;
+    /**
+     * @var DisciplineRepository
+     */
+    protected $disciplineRepository;
+
+    public function __construct(GradeRepository $gradeRepository, ClassroomRepository $classroomRepository, DisciplineRepository $disciplineRepository)
+    {
+        $this->gradeRepository = $gradeRepository;
+        $this->classroomRepository = $classroomRepository;
+        $this->disciplineRepository = $disciplineRepository;
+    }
+
+    /**
      * Display a listing of the resource.
      *
+     * @param ViewAnyRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function classrooms(ViewAnyRequest $request)
     {
-        //
+        $records = $this
+            ->classroomRepository
+            ->filteredQuery($request->query())
+            ->paginate(25);
+        return view('pages.grades.classrooms', compact('records'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param ViewAnyRequest $request
+     * @param Classroom $classroom
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function disciplines(ViewAnyRequest $request, Classroom $classroom)
     {
-        //
+        $records = $this
+            ->disciplineRepository
+            ->filteredQuery($request->query())
+            ->whereHas('classrooms', function ($query) use ($classroom) {
+                $query->where('classroom_id', $classroom->id);
+            })
+            ->paginate(25);
+        return view('pages.grades.disciplines', compact('records', 'classroom'));
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param ViewAnyRequest $request
+     * @param Classroom $classroom
+     * @param Discipline $discipline
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function store(Request $request)
+    public function grades(ViewAnyRequest $request, Classroom $classroom, Discipline $discipline)
     {
-        //
+        $records = $this
+            ->gradeRepository
+            ->filteredQuery($request->query())
+            ->where('classroom_id', $classroom->id)
+            ->where('discipline_id', $discipline->id)
+            ->with(['user'])
+            ->paginate(25);
+
+        return view('pages.grades.grades', compact('records', 'classroom', 'discipline'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Grade  $grade
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Grade $grade)
+    public function create(CreateRequest $request, Classroom $classroom, Discipline $discipline)
     {
-        //
+        $users = User::whereHas('enrollments', function ($query) use ($classroom, $discipline) {
+            $query->fromDisciplineAndClassroom($discipline, $classroom);
+        })->whereDoesntHave('grades', function ($query) use ($classroom, $discipline) {
+            $query->fromDisciplineAndClassroom($discipline, $classroom);
+        })->paginate(25);
+
+        return view('pages.grades.create', compact('users', 'classroom', 'discipline'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Grade  $grade
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Grade $grade)
+    public function store(StoreRequest $request, Classroom $classroom, Discipline $discipline)
     {
-        //
+        $grade = $this->gradeRepository->create(array_merge($request->all(), [
+            'classroom_id' => $classroom->id,
+            'discipline_id' => $discipline->id
+        ]));
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return $grade;
+        }
+
+        return redirect()->route('grades.grades', [$classroom, $discipline])->with([
+            'message' => 'Notas e faltas cadastradas com sucesso!'
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Grade  $grade
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Grade $grade)
+    public function edit(EditRequest $request, Classroom $classroom, Discipline $discipline, User $user)
     {
-        //
+        $grade = Grade::fromDisciplineAndClassroom($discipline, $classroom)->where('user_id', $user->id)->firstOrFail();
+
+        return view('pages.grades.edit', compact('classroom', 'discipline', 'user', 'grade'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Grade  $grade
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Grade $grade)
+    public function update(UpdateRequest $request, Classroom $classroom, Discipline $discipline, User $user)
     {
-        //
+        $grade = Grade::fromDisciplineAndClassroom($discipline, $classroom)->where('user_id', $user->id)->firstOrFail();
+
+        $updatedUser = $this->gradeRepository->updateModel($grade, array_merge(
+            $request->all(),
+            [
+                'classroom_id' => $classroom->id,
+                'discipline_id' => $discipline->id
+            ]
+        ));
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return $updatedUser;
+        }
+
+        return redirect()->route('grades.grades', [$classroom, $discipline])->with([
+           'message' => 'Notas e faltas atualizadas com sucesso!'
+        ]);
     }
+
 }

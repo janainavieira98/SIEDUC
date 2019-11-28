@@ -63,5 +63,14 @@ Route::group(['middleware' => 'auth'], function () {
             'matriculas' => 'enrollment'
         ]);
 
+    Route::group(['prefix' => '/notas-e-faltas', 'as' => 'grades.'], function () {
+        Route::get('/', 'GradeController@classrooms')->name('classrooms');
+        Route::get('/{classroom}', 'GradeController@disciplines')->name('disciplines');
+        Route::get('/{classroom}/{discipline}', 'GradeController@grades')->name('grades');
+        Route::get('/{classroom}/{discipline}/create', 'GradeController@create')->name('create');
+        Route::post('/{classroom}/{discipline}/store', 'GradeController@store')->name('store');
+        Route::get('/{classroom}/{discipline}/{user}/editar', 'GradeController@edit')->name('edit');
+        Route::put('/{classroom}/{discipline}/{user}/update', 'GradeController@update')->name('update');
+    });
 
 });

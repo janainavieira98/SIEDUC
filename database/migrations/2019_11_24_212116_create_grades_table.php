@@ -17,14 +17,15 @@ class CreateGradesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('classroom_id');
             $table->unsignedBigInteger('discipline_id');
-            $table->string('grade1');
-            $table->string('grade2');
-            $table->string('grade3');
-            $table->string('grade4');
-            $table->string('absences1');
-            $table->string('absences2');
-            $table->string('absences3');
-            $table->string('absences4');
+            $table->unsignedBigInteger('user_id');
+            $table->string('grade1')->nullable();
+            $table->string('grade2')->nullable();
+            $table->string('grade3')->nullable();
+            $table->string('grade4')->nullable();
+            $table->string('absences1')->nullable();
+            $table->string('absences2')->nullable();
+            $table->string('absences3')->nullable();
+            $table->string('absences4')->nullable();
             $table->boolean('approved')->nullable();
             $table->timestamps();
 
@@ -36,6 +37,11 @@ class CreateGradesTable extends Migration
             $table->foreign('discipline_id')
                 ->references('id')
                 ->on('disciplines')
+                ->onDelete('cascade');
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
                 ->onDelete('cascade');
         });
     }

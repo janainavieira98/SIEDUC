@@ -113,4 +113,14 @@ class User extends BaseUser
         return $this->belongsToMany(Discipline::class, 'classroom_discipline_user')->using(ClassroomDisciplineUser::class);
     }
 
+    public function grades()
+    {
+        return $this->hasMany(Grade::class);
+    }
+
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class);
+    }
+
 }

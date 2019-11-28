@@ -2,11 +2,16 @@
 
 namespace App;
 
+use App\Enhancements\HasDisciplinesThroughClassrooms;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Grade extends Model
 {
+    use HasDisciplinesThroughClassrooms;
+
     protected $fillable = [
+        'user_id',
         'classroom_id',
         'discipline_id',
         'grade1',
@@ -29,4 +34,10 @@ class Grade extends Model
     {
         return $this->belongsTo(Discipline::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

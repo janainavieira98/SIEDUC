@@ -8,6 +8,7 @@ use App\Classroom;
 use App\ClassroomDisciplineUser;
 use App\Discipline;
 use App\Enrollment;
+use App\Grade;
 use App\User;
 use Illuminate\View\View;
 
@@ -36,7 +37,8 @@ class Sidebar
                     ],
                     [
                         'name' => __('scores and presence'),
-                        'link' => '#'
+                        'link' => route('grades.classrooms'),
+                        'show' => $this->can('viewAny', Grade::class)
                     ],
                     [
                         'name' => __('generate report'),
