@@ -80,6 +80,14 @@ class ReportController extends Controller
     public function historicUser(Request $request, User $user)
     {
         $user->load(['grades.discipline', 'grades.classroom']);
+        $firstEnrollment = $user->enrollments()->first();
+
+        if (!$firstEnrollment) {
+            return $this->failHistoricGeneration();
+        }
+
+        $firstClassroom = $firstEnrollment->classroom;
+        $firstYear = $firstClassroom->year;
         $records = [];
 
         foreach ($user->grades as $grade) {
@@ -104,24 +112,23 @@ class ReportController extends Controller
             }
         }
 
-        $records = array_values(array_map(function($year) {
-            return array_map(function($discipline) {
-                $discipline['classrooms'] = array_values($discipline['classrooms']);
-
-                return $discipline;
-            }, $year);
-        }, $records));
-
         $records = collect($records);
 
         if (!count($records)) {
-            return redirect()->route('reports.historicUsers')->with([
-                'message' => 'Este usuário não possui informações suficientes para geração do historico escolar'
-            ]);
+            return $this->failHistoricGeneration();
         }
 
-        $pdf = PDF::loadView('pages.historic.pdf', compact('records', 'user'));
+        $years = $user->enrollments()->count();
+
+        $pdf = PDF::loadView('pages.historic.pdf', compact('records', 'user', 'firstClassroom', 'firstYear', 'years'));
 
         return $pdf->stream();
+    }
+
+    public function failHistoricGeneration()
+    {
+        return redirect()->route('reports.historicUsers')->with([
+            'message' => 'Este usuário não possui informações suficientes para geração do historico escolar'
+        ]);
     }
 }

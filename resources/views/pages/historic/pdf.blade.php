@@ -37,8 +37,6 @@
     <b>RG:</b><span> {{ $user->rg }}</span>
   </div>
 </aside>
-@php($firstClassroom = array_values($records[0]['classrooms']))
-@php($firstYear = $firstClassroom[0]['classroom']['year'])
 <main>
 
   <table class="bordered-table" border="1" width="100%">
@@ -46,18 +44,16 @@
     <tr>
       <th rowspan="2">COMPONENTS CURRICULARES</th>
       <th>ANO</th>
-      <th>{{ $firstYear }}</th>
-      @for($i = 1; $i <= 2; $i++)
+      @for($i = $firstYear; $i <= $firstYear + 2; $i++)
         <th>
-          {{ $firstYear + $i }}
+          {{ $i }}
         </th>
       @endfor
       <th rowspan="2" style="padding-left: 10px">CARGA HORÁRIA</th>
     </tr>
     <tr>
       <th>SÉRIE</th>
-      <th>{{ $firstClassroom[0]['classroom']['grade'] }}</th>
-      @for($i = 1; $i <= 2; $i++)
+      @for($i = 1; $i <= 3; $i++)
         <th>
           {{ $firstClassroom[0]['classroom']['grade'] + $i }}
         </th>
@@ -65,22 +61,42 @@
     </tr>
     </thead>
     <tbody>
-    @foreach($records as $discipline)
+    @foreach($records as $disciplineGrades)
+      @php
+        $disciplineGradeInfo = $disciplineGrades[array_key_first($disciplineGrades)];
+        $discipline = $disciplineGradeInfo['discipline'];
+      @endphp
       <tr>
-        <td colspan="2">{{ $discipline['discipline']['name'] }}</td>
+        <td colspan="2">
+          {{ $discipline['name'] }}
+        </td>
         @for($i = $firstYear; $i <= $firstYear+2; $i++)
-          @php($classroom = collect($discipline[$i]['classrooms'] ?? [])->first(function($classroom) use ($i) {
-            return $classroom['year'] == $i;
-          }))
-          @if(!!$classroom)
-            <td>{{ $classroom['averageGrade'] }}</td>
+          @if(isset($disciplineGrades[$i]))
+            @php
+              $yearInfo = $disciplineGrades[$i];
+              $averageGrade=$yearInfo['averageGrade'];
+            @endphp
+            <td>{{ $averageGrade }}</td>
           @else
             <td>0</td>
           @endif
         @endfor
-        <td>{{ $discipline['years'] * 1000 }}h</td>
+        <td>{{ $years * $discipline['timeload'] }}</td>
       </tr>
     @endforeach
+    {{--    @foreach($records as $discipline)--}}
+    {{--      <tr>--}}
+    {{--        <td colspan="2">{{ $discipline['discipline']['name'] }}</td>--}}
+    {{--        @for($i = $firstYear; $i <= $firstYear+2; $i++)--}}
+    {{--          @if(!!$classroom)--}}
+    {{--            <td>{{ $classroom['averageGrade'] }}</td>--}}
+    {{--          @else--}}
+    {{--            <td>0</td>--}}
+    {{--          @endif--}}
+    {{--        @endfor--}}
+    {{--        <td>{{ $discipline['years'] * 1000 }}h</td>--}}
+    {{--      </tr>--}}
+    {{--    @endforeach--}}
     </tbody>
   </table>
 </main>
