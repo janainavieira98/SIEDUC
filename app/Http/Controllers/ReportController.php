@@ -54,16 +54,18 @@ class ReportController extends Controller
     public function schoolReportUser(Request $request, Classroom $classroom, User $user, $part)
     {
         $enrollment = $user->enrollments()->where('classroom_id', $classroom->id)->first();
-        $grade = $classroom->grades()->where('user_id', $user->id)->first();
-        $classroom->load('disciplines');
+        $grades = $classroom->grades()->where('user_id', $user->id)->get();
+        $classroom->load(['disciplines' => function($query) {
+            return $query->distinct();
+        }]);
 
-        if (!$grade) {
+        if (!$grades || !count($grades)) {
             return redirect()->route('reports.schoolReportUsers', [$classroom, $user])->with([
                 'message' => 'As notas e faltas deste usuário ainda não foram geradas'
             ]);
         }
 
-        $pdf = PDF::loadView('pages.school_report.pdf', compact('classroom', 'user', 'part', 'grade', 'enrollment'));
+        $pdf = PDF::loadView('pages.school_report.pdf', compact('classroom', 'user', 'part', 'grades', 'enrollment'));
 
         return $pdf->stream();
     }
@@ -78,10 +80,44 @@ class ReportController extends Controller
     public function historicUser(Request $request, User $user)
     {
         $user->load(['grades.discipline', 'grades.classroom']);
+        $records = [];
 
-        return $user;
+        foreach ($user->grades as $grade) {
+            $averageGrade = $grade->averageGrade(4);
+            if (isset($records[$grade->discipline_id])) {
+                $records[$grade->discipline_id]['averageGrade'] += $averageGrade;
+                $records[$grade->discipline_id]['years']++;
+            } else {
+                $records[$grade->discipline_id] = [
+                    'averageGrade' => $averageGrade,
+                    'discipline' => $grade->discipline,
+                    'classrooms' => [
+                      $grade->classroom_id => [
+                          'classroom' => $grade->classroom,
+                          'averageGrade' => $averageGrade,
+                          'year' => $grade->classroom->year
+                      ]
+                    ],
+                    'years' => 1
+                ];
+            }
+        }
 
-        $pdf = PDF::loadView('pages.historic.pdf', compact('user'));
+        $records = array_values(array_map(function($discipline) {
+            $discipline['classrooms'] = array_values($discipline['classrooms']);
+
+            return $discipline;
+        }, $records));
+
+        $records = collect($records);
+
+        if (!count($records)) {
+            return redirect()->route('reports.historicUsers')->with([
+                'message' => 'Este usuário não possui informações suficientes para geração do historico escolar'
+            ]);
+        }
+
+        $pdf = PDF::loadView('pages.historic.pdf', compact('records', 'user'));
 
         return $pdf->stream();
     }

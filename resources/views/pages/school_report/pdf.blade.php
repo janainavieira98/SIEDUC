@@ -20,6 +20,10 @@
       margin-top: 0.5cm;
     }
 
+    header {
+      text-align: center;
+    }
+
   </style>
 </head>
 <body>
@@ -29,27 +33,25 @@
 </header>
 <aside>
   <div>
-    <span>Nome:</span> <span>{{ $user->name }}</span>
+    <b>NOME:</b><span> {{ $user->name }}</span>
   </div>
-  <table>
-    <tbody>
-    <tr>
-      <td>
-        <span>Série: </span>
-        <span>{{ $classroom->grade }}</span>
-      </td>
-      <td>
-        <span>Ano: </span>
-        <span>{{ $classroom->year }}</span>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+  <div>
+    <b>CPF:</b><span> {{ $user->cpf }}</span>
+  </div>
+  <div>
+    <b>RG:</b><span> {{ $user->rg }}</span>
+  </div>
+  <div>
+    <b>Série: </b>
+    <span>{{ $classroom->grade }}</span>
+    <b style="margin-left: 0.5cm">Ano: </b>
+    <span>{{ $classroom->year }}</span>
+  </div>
 </aside>
 <main>
   @include('components.school_report', [
     'classroom' => $classroom,
-    'grade' => $grade
+    'grades' => $grades
   ])
 </main>
 </body>

@@ -45,25 +45,30 @@
   </thead>
   <tbody>
   @foreach($classroom->disciplines as $discipline)
-    <tr>
-      <td colspan="2">{{ $discipline->name }}</td>
-      @for($i = 1; $i <= $part; $i++)
-        <td>{{ $grade["grade$i"] ?? 0 }}</td>
-        <td>{{ $grade["absences$i"] ?? 0 }}</td>
-      @endfor
-      @if($part < 4)
-        @foreach(range($part+1, 4) as $bimester)
-          <td>0</td>
-          <td>0</td>
-        @endforeach
-      @endif
-      <td>
-        {{ $grade->averageGrade($part) }}
-      </td>
-      <td>
-        {{ $grade->totalAbsences($part) }}
-      </td>
-    </tr>
+    @php($grade = $grades->first(function($grade) use ($discipline) {
+      return $grade['discipline_id'] == $discipline['id'];
+    }))
+    @if(!!$grade)
+      <tr>
+        <td colspan="2">{{ $discipline->name }}</td>
+        @for($i = 1; $i <= $part; $i++)
+          <td>{{ $grade["grade$i"] ?? 0 }}</td>
+          <td>{{ $grade["absences$i"] ?? 0 }}</td>
+        @endfor
+        @if($part < 4)
+          @foreach(range($part+1, 4) as $bimester)
+            <td>0</td>
+            <td>0</td>
+          @endforeach
+        @endif
+        <td>
+          {{ $grade->averageGrade($part) }}
+        </td>
+        <td>
+          {{ $grade->totalAbsences($part) }}
+        </td>
+      </tr>
+    @endif
   @endforeach
   </tbody>
 </table>
