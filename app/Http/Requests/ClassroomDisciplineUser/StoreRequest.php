@@ -45,14 +45,14 @@ class StoreRequest extends FormRequest
                 'string',
                 'regex:/\d{2}\:\d{2}/',
                 function($attribute, $value, $fail) {
-                    $exists = ClassroomDisciplineUser::where('hour', $value)->where('user_id', $this->request->get('user_id'))->exists();
+                    $exists = ClassroomDisciplineUser::where('hour', $value)->where('weekday_slug', $this->request->get('weekday_slug'))->where('user_id', $this->request->get('user_id'))->exists();
 
                     if ($exists) {
                         $fail('já existe uma aula neste horario para este professor');
                     }
                 },
                 function($attribute, $value, $fail) {
-                    $exists = ClassroomDisciplineUser::where('hour', $value)->where('classroom_id', $this->request->get('classroom_id'))->exists();
+                    $exists = ClassroomDisciplineUser::where('hour', $value)->where('weekday_slug', $this->request->get('weekday_slug'))->where('classroom_id', $this->request->get('classroom_id'))->exists();
 
                     if ($exists) {
                         $fail('já existe uma aula neste horario para esta classe');
