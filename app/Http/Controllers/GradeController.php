@@ -49,6 +49,7 @@ class GradeController extends Controller
             ->classroomRepository
             ->filteredQuery($request->query())
             ->paginate(25);
+
         return view('pages.grades.classrooms', compact('records'));
     }
 

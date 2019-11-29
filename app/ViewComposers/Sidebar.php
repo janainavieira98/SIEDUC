@@ -42,11 +42,13 @@ class Sidebar
                     ],
                     [
                         'name' => __('generate report'),
-                        'link' => '#'
+                        'link' => route('reports.schoolReportClassrooms'),
+                        'show' => $this->can('viewReports')
                     ],
                     [
                         'name' => __('generate history'),
-                        'link' => '#'
+                        'link' => route('reports.historicUsers'),
+                        'show' => $this->can('viewReports')
                     ],
                     [
                         'name' => __('link disciplines'),

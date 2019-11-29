@@ -14,8 +14,10 @@ use App\Policies\DisciplinePolicy;
 use App\Policies\EnrollmentPolicy;
 use App\Policies\GradePolicy;
 use App\Policies\UserPolicy;
+use App\Role;
 use App\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -44,6 +46,10 @@ class AuthServiceProvider extends ServiceProvider
 
         $this->app->auth->provider('school_member', function ($app, array $config) {
             return new InstitutionUserProvider($app['hash'], $config['model']);
+        });
+
+        Gate::define('viewReports', function($user) {
+           return $user->role_slug == Role::$DIRECTOR || $user->role_slug == Role::$SECRETARY;
         });
     }
 }

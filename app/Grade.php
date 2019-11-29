@@ -40,4 +40,32 @@ class Grade extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function totalGrade($part)
+    {
+        $total = 0;
+
+        for ($i = 1; $i <= $part; $i++) {
+            $total += $this->attributes["grade$i"] ?: 0;
+        }
+
+        return $total;
+    }
+
+    public function averageGrade($part)
+    {
+        $total = $this->totalGrade($part);
+
+        return $total / $part;
+    }
+
+    public function totalAbsences($part)
+    {
+        $absences = 0;
+
+        for ($i = 1; $i <= $part; $i++) {
+            $absences += $this->attributes["absences$i"] ?: 0;
+        }
+
+        return $absences;
+    }
 }

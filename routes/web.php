@@ -73,4 +73,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/{classroom}/{discipline}/{user}/update', 'GradeController@update')->name('update');
     });
 
+    Route::get('/gerar-boletim', 'ReportController@schoolReportClassrooms')->name('reports.schoolReportClassrooms');
+    Route::get('/gerar-boletim/{classroom}', 'ReportController@schoolReportUsers')->name('reports.schoolReportUsers');
+    Route::get('/gerar-boletim/{classroom}/{user}/{part}', 'ReportController@schoolReportUser')->name('reports.schoolReportUser');
+    Route::get('/gerar-historico', 'ReportController@historicUsers')->name('reports.historicUsers');
+    Route::get('/gerar-historico/{user}', 'ReportController@historicUser')->name('reports.historicUser');
 });
