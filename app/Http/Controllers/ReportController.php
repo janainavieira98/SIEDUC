@@ -84,11 +84,12 @@ class ReportController extends Controller
 
         foreach ($user->grades as $grade) {
             $averageGrade = $grade->averageGrade(4);
-            if (isset($records[$grade->discipline_id])) {
-                $records[$grade->discipline_id]['averageGrade'] += $averageGrade;
-                $records[$grade->discipline_id]['years']++;
+            $year = $grade->classroom->year;
+            if (isset($records[$grade->discipline_id][$year])) {
+                $records[$grade->discipline_id][$year]['averageGrade'] += $averageGrade;
+                $records[$grade->discipline_id][$year]['years']++;
             } else {
-                $records[$grade->discipline_id] = [
+                $records[$grade->discipline_id][$year] = [
                     'averageGrade' => $averageGrade,
                     'discipline' => $grade->discipline,
                     'classrooms' => [
@@ -103,10 +104,12 @@ class ReportController extends Controller
             }
         }
 
-        $records = array_values(array_map(function($discipline) {
-            $discipline['classrooms'] = array_values($discipline['classrooms']);
+        $records = array_values(array_map(function($year) {
+            return array_map(function($discipline) {
+                $discipline['classrooms'] = array_values($discipline['classrooms']);
 
-            return $discipline;
+                return $discipline;
+            }, $year);
         }, $records));
 
         $records = collect($records);

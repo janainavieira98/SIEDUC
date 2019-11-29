@@ -69,7 +69,7 @@
       <tr>
         <td colspan="2">{{ $discipline['discipline']['name'] }}</td>
         @for($i = $firstYear; $i <= $firstYear+2; $i++)
-          @php($classroom = collect($discipline['classrooms'])->first(function($classroom) use ($i) {
+          @php($classroom = collect($discipline[$i]['classrooms'] ?? [])->first(function($classroom) use ($i) {
             return $classroom['year'] == $i;
           }))
           @if(!!$classroom)
