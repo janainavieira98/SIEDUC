@@ -56,7 +56,7 @@
                 </a>
                 <a href="{{ route('reports.schoolReportUser', [$classroom, $record, 4]) }}" target="_blank"
                    class="btn btn-success">
-                  <span class="fas fa-eye"/> Bimestre 3
+                  <span class="fas fa-eye"/> Bimestre 4
                 </a>
               </td>
             </tr>

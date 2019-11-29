@@ -4,8 +4,8 @@
   @include('components.breadcrumbs', [
    'items' => [
      __('Home') => route('home'),
-     'Notas e Faltas: Classe' => route('grades.classrooms', request()->route('classroom')),
-     'Notas e Faltas: Disciplina' => route('grades.disciplines', request()->route('discipline')),
+     'Notas e Faltas: Classe' => route('grades.classrooms', [request()->route('classroom')]),
+     'Notas e Faltas: Disciplina' => route('grades.disciplines', [request()->route('classroom'), request()->route('discipline')]),
      'Notas e Faltas: Alunos' => url()->current()
    ]
  ])
@@ -57,7 +57,8 @@
               <td>{{ $discipline->name }}</td>
               <td>{{ $record['approved'] ? 'Aprovado' : 'Reprovado ou Incompleto' }}</td>
               <td>
-                <a href="{{ route('grades.edit', [$classroom, $discipline, $record['user']['uuid']]) }}" class="btn btn-success">
+                <a href="{{ route('grades.edit', [$classroom, $discipline, $record['user']['uuid']]) }}"
+                   class="btn btn-success">
                   Editar
                 </a>
               </td>
