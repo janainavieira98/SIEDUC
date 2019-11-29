@@ -93,8 +93,6 @@ class GradeController extends Controller
     {
         $users = User::whereHas('enrollments', function ($query) use ($classroom, $discipline) {
             $query->fromDisciplineAndClassroom($discipline, $classroom);
-        })->whereDoesntHave('grades', function ($query) use ($classroom, $discipline) {
-            $query->fromDisciplineAndClassroom($discipline, $classroom);
         })->paginate(25);
 
         return view('pages.grades.create', compact('users', 'classroom', 'discipline'));
