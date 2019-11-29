@@ -4,8 +4,8 @@
   @include('components.breadcrumbs', [
    'items' => [
      __('Home') => route('home'),
-     'Notas e Faltas: Classe' => route('grades.classrooms', [request()->route('classroom')]),
-     'Notas e Faltas: Disciplina' => route('grades.disciplines', [request()->route('classroom'), request()->route('discipline')]),
+     'Notas e Faltas: Classe' => route('grades.classrooms'),
+     'Notas e Faltas: Disciplina' => route('grades.disciplines', [request()->route('classroom')]),
      'Notas e Faltas: Alunos' => url()->current()
    ]
  ])
