@@ -11,7 +11,7 @@
 
   @component('components.card')
     @slot('header')
-      <span class="text-capitalize">{{ __('register user') }}</span>
+      <span class="text-capitalize">{{ isset($role) ? 'Cadastrar Aluno' : __('register user') }}</span>
     @endslot
 
     <form method="POST" action="{{ route($form_route ?? 'usuarios.store') }}">
@@ -63,60 +63,66 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-12 col-lg-6">
-          <div class="form-group row">
-            <label
-              for="password"
-              class="col-lg-4 col-form-label text-md-left text-capitalize">
-              {{ __('password') }}
-            </label>
+      @if(!isset($role))
 
-            <div class="col-lg-8">
-              <div>
-                <input
-                  id="password"
-                  type="password"
-                  class="form-control @error('password') is-invalid @enderror"
-                  name="password"
-                  required
-                  autocomplete="current-password"
-                />
+        <div class="row">
+          <div class="col-12 col-lg-6">
+            <div class="form-group row">
+              <label
+                for="password"
+                class="col-lg-4 col-form-label text-md-left text-capitalize">
+                {{ __('password') }}
+              </label>
+
+              <div class="col-lg-8">
+                <div>
+                  <input
+                    id="password"
+                    type="password"
+                    class="form-control @error('password') is-invalid @enderror"
+                    name="password"
+                    required
+                    autocomplete="current-password"
+                  />
+                </div>
+
+                @component('components.errors', ['errorKey' => 'password'])
+                @endcomponent
               </div>
+            </div>
+          </div>
+          <div class="col-12 col-lg-6">
+            <div class="form-group row">
+              <label
+                for="password_confirmation"
+                class="col-lg-4 col-form-label text-md-left text-capitalize">
+                {{ __('confirm password') }}
+              </label>
 
-              @component('components.errors', ['errorKey' => 'password'])
-              @endcomponent
+              <div class="col-lg-8">
+                <div>
+                  <input
+                    id="password_confirmation"
+                    type="password"
+                    class="form-control @error('password_confirmation') is-invalid @enderror"
+                    name="password_confirmation"
+                    required
+                    autocomplete="password_confirmation"
+                  />
+                </div>
 
+                @component('components.errors', ['errorKey' => 'password_confirmation'])
+                @endcomponent
+
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-12 col-lg-6">
-          <div class="form-group row">
-            <label
-              for="password_confirmation"
-              class="col-lg-4 col-form-label text-md-left text-capitalize">
-              {{ __('confirm password') }}
-            </label>
-
-            <div class="col-lg-8">
-              <div>
-                <input
-                  id="password_confirmation"
-                  type="password"
-                  class="form-control @error('password_confirmation') is-invalid @enderror"
-                  name="password_confirmation"
-                  required
-                  autocomplete="password_confirmation"
-                />
-              </div>
-
-              @component('components.errors', ['errorKey' => 'password_confirmation'])
-              @endcomponent
-
-            </div>
-          </div>
-        </div>
-      </div>
+      @else
+        @php($pass = \Illuminate\Support\Str::random(8))
+        <input type="hidden" name="password" value="{{ $pass }}">
+        <input type="hidden" name="password_confirmation" value="{{ $pass }}">
+      @endif
 
       <div class="row">
         <div class="col-12 col-lg-6">
